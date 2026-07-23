@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="CTR Form Automation Tool V3.1"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Width="1400"
-        Height="900">
+        WindowState="Maximized">
 
     <Grid Margin="16">
 
@@ -18,13 +17,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="1">
+        <!--<ScrollViewer Grid.Row="1">-->
 
             <StackPanel>
 
                 <!-- Finding Ticket -->
                 <materialDesign:Card Margin="0 0 0 12"
-                                 Padding="16">
+                                 Padding="5" BorderThickness="1">
 
                     <StackPanel>
 
@@ -79,8 +78,10 @@
                             <TextBox Grid.Column="8"/>
                         </Grid>
 
-                        <TextBox Margin="0 16 0 0"
-                             Height="140"
+                        <TextBox 
+                            materialDesign:HintAssist.Hint="Enter Finding Ticket Details ..."
+                            Margin="0 16 0 0"
+                             Height="50"
                              AcceptsReturn="True"
                              TextWrapping="Wrap"
                              VerticalScrollBarVisibility="Auto"/>
@@ -90,17 +91,19 @@
                 </materialDesign:Card>
 
                 <!-- Damage Information -->
-                <materialDesign:Card Padding="16">
+                <materialDesign:Card Padding="5" BorderThickness="1">
 
                     <StackPanel>
 
-                        <TextBlock Text="Add Damage Information"
+                        <TextBlock Text="Enter Damage Information"
                                FontWeight="SemiBold"
                                FontSize="18"
                                Foreground="#1565C0"/>
 
-                        <TextBox Margin="0 16 0 0"
-                             Height="120"
+                        <TextBox 
+                            materialDesign:HintAssist.Hint="Enter damage description..."
+                            Margin="0 16 0 0"
+                             Height="50"
                              AcceptsReturn="True"/>
 
                         <Grid Margin="0 20 0 0">
@@ -171,10 +174,10 @@
 
                 <!-- Data Grid -->
 
-                <materialDesign:Card Margin="0 12 0 0">
+                <materialDesign:Card Margin="0 12 0 0" BorderThickness="1" Padding="5">
 
-                    <DataGrid Height="250"
-                          AutoGenerateColumns="False">
+                    <DataGrid Height="140"
+                          AutoGenerateColumns="False" >
 
                         <DataGrid.Columns>
 
@@ -201,14 +204,14 @@
 
             </StackPanel>
 
-        </ScrollViewer>
+        <!--</ScrollViewer>-->
 
         <!-- Footer -->
 
         <StackPanel Grid.Row="2"
                 Orientation="Horizontal"
                 HorizontalAlignment="Right"
-                Margin="0 12 0 0">
+                Margin="0 0 0 0">
 
             <Button Content="Run"
                 Width="160"
