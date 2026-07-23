@@ -1,0 +1,232 @@
+﻿<Window x:Class="UIRequirement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UIRequirement"
+        mc:Ignorable="d"
+        Title="CTR Form Automation Tool V3.1"
+        Width="1400"
+        Height="900">
+
+    <DockPanel>
+
+        <!-- Menu -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File"/>
+            <MenuItem Header="_Help"/>
+        </Menu>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            <StackPanel Margin="15">
+
+                <!-- Finding Ticket -->
+                <GroupBox Header="Finding Ticket Information"
+                          Margin="0,0,0,15">
+
+                    <StackPanel Margin="10">
+
+                        <Grid Margin="0,0,0,10">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="180"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Finding Ticket No*"
+                                       VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Column="1"
+                                     Margin="5"/>
+
+                            <Button Grid.Column="2"
+                                    Content="Load"
+                                    Width="120"
+                                    Height="35"
+                                    Margin="10,0"/>
+
+                            <TextBlock Grid.Column="3"
+                                       Text="ESN*"
+                                       VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Column="4"
+                                     Margin="5"/>
+
+                            <TextBlock Grid.Column="5"
+                                       Text="TSN*"
+                                       VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Column="6"
+                                     Margin="5"/>
+
+                            <TextBlock Grid.Column="7"
+                                       Text="CSN*"
+                                       VerticalAlignment="Center"/>
+
+                        </Grid>
+
+                        <TextBox Height="71"
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 TextWrapping="Wrap"/>
+
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Damage Information -->
+                <GroupBox Header="Add Damage Information">
+
+                    <StackPanel Margin="10">
+
+                        <TextBox Height="89"
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Margin="0,0,0,15"/>
+
+                        <!-- Row 1 -->
+                        <Grid Margin="0,0,0,10">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Part Repair*"
+                                       VerticalAlignment="Center"/>
+
+                            <ComboBox Grid.Column="1"/>
+
+                            <TextBlock Grid.Column="2"
+                                       Text="Location*"
+                                       VerticalAlignment="Center"/>
+
+                            <ComboBox Grid.Column="3"/>
+
+                        </Grid>
+
+                        <!-- Row 2 -->
+                        <Grid Margin="0,0,0,15">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Non-conformance Type"
+                                       VerticalAlignment="Center"/>
+
+                            <ComboBox Grid.Column="1"/>
+
+                            <TextBlock Grid.Column="2"
+                                       Text="Overview"
+                                       VerticalAlignment="Center"/>
+
+                            <ComboBox Grid.Column="3"/>
+
+                        </Grid>
+
+                        <!-- Row 3 -->
+                        <Grid Margin="0,0,0,15">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Zoomed View"
+                                       VerticalAlignment="Center"/>
+
+                            <ComboBox Grid.Column="1"/>
+
+                            <TextBlock Grid.Column="2"
+                                       Text="Part Information"
+                                       VerticalAlignment="Center"/>
+
+                            <ComboBox Grid.Column="3"/>
+
+                            <Button Grid.Column="4"
+                                    Content="Add More Images"
+                                    Height="40"/>
+
+                            <Button Grid.Column="5"
+                                    Content="Add"
+                                    Height="40"/>
+
+                            <Button Grid.Column="6"
+                                    Content="Clear"
+                                    Height="40"/>
+
+                        </Grid>
+
+                        <!-- Grid -->
+                        <DataGrid Height="132"
+                                  AutoGenerateColumns="False">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="DamageText"
+                                                    Binding="{Binding DamageText}"
+                                                    Width="*"/>
+
+                                <DataGridTextColumn Header="Type"
+                                                    Binding="{Binding Type}"
+                                                    Width="150"/>
+
+                                <DataGridTextColumn Header="SubType"
+                                                    Binding="{Binding SubType}"
+                                                    Width="150"/>
+
+                                <DataGridTextColumn Header="Image1"
+                                                    Binding="{Binding Image1}"
+                                                    Width="200"/>
+
+                                <DataGridTextColumn Header="Image2"
+                                                    Binding="{Binding Image2}"
+                                                    Width="200"/>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Bottom Buttons -->
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,15,0,0">
+
+                    <Button Content="Run"
+                            Width="180"
+                            Height="45"
+                            Margin="0,0,10,0"/>
+
+                    <Button Content="Close"
+                            Width="180"
+                            Height="45"/>
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+    </DockPanel>
+
+</Window>
