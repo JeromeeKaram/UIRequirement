@@ -6,227 +6,222 @@
         xmlns:local="clr-namespace:UIRequirement"
         mc:Ignorable="d"
         Title="CTR Form Automation Tool V3.1"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Width="1400"
         Height="900">
 
-    <DockPanel>
+    <Grid Margin="16">
 
-        <!-- Menu -->
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File"/>
-            <MenuItem Header="_Help"/>
-        </Menu>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1">
 
-            <StackPanel Margin="15">
+            <StackPanel>
 
                 <!-- Finding Ticket -->
-                <GroupBox Header="Finding Ticket Information"
-                          Margin="0,0,0,15">
+                <materialDesign:Card Margin="0 0 0 12"
+                                 Padding="16">
 
-                    <StackPanel Margin="10">
+                    <StackPanel>
 
-                        <Grid Margin="0,0,0,10">
+                        <TextBlock Text="Finding Ticket Information"
+                               FontWeight="SemiBold"
+                               FontSize="18"
+                               Foreground="#1565C0"/>
+
+                        <Grid Margin="0 16 0 0">
 
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="180"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="180"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Text="Finding Ticket No*"
-                                       VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"/>
 
                             <TextBox Grid.Column="1"
-                                     Margin="5"/>
+                                 Margin="8 0"/>
 
                             <Button Grid.Column="2"
-                                    Content="Load"
-                                    Width="120"
-                                    Height="35"
-                                    Margin="10,0"/>
+                                Content="Load"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"/>
 
                             <TextBlock Grid.Column="3"
-                                       Text="ESN*"
-                                       VerticalAlignment="Center"/>
+                                   Text="ESN*"
+                                   Margin="20 0 0 0"
+                                   VerticalAlignment="Center"/>
 
-                            <TextBox Grid.Column="4"
-                                     Margin="5"/>
+                            <TextBox Grid.Column="4"/>
 
                             <TextBlock Grid.Column="5"
-                                       Text="TSN*"
-                                       VerticalAlignment="Center"/>
+                                   Text="TSN*"
+                                   Margin="20 0 0 0"
+                                   VerticalAlignment="Center"/>
 
-                            <TextBox Grid.Column="6"
-                                     Margin="5"/>
+                            <TextBox Grid.Column="6"/>
 
                             <TextBlock Grid.Column="7"
-                                       Text="CSN*"
-                                       VerticalAlignment="Center"/>
+                                   Text="CSN*"
+                                   Margin="20 0 0 0"
+                                   VerticalAlignment="Center"/>
 
+                            <TextBox Grid.Column="8"/>
                         </Grid>
 
-                        <TextBox Height="71"
-                                 AcceptsReturn="True"
-                                 VerticalScrollBarVisibility="Auto"
-                                 TextWrapping="Wrap"/>
+                        <TextBox Margin="0 16 0 0"
+                             Height="140"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"/>
 
                     </StackPanel>
-                </GroupBox>
+
+                </materialDesign:Card>
 
                 <!-- Damage Information -->
-                <GroupBox Header="Add Damage Information">
+                <materialDesign:Card Padding="16">
 
-                    <StackPanel Margin="10">
+                    <StackPanel>
 
-                        <TextBox Height="89"
-                                 AcceptsReturn="True"
-                                 VerticalScrollBarVisibility="Auto"
-                                 Margin="0,0,0,15"/>
+                        <TextBlock Text="Add Damage Information"
+                               FontWeight="SemiBold"
+                               FontSize="18"
+                               Foreground="#1565C0"/>
 
-                        <!-- Row 1 -->
-                        <Grid Margin="0,0,0,10">
+                        <TextBox Margin="0 16 0 0"
+                             Height="120"
+                             AcceptsReturn="True"/>
+
+                        <Grid Margin="0 20 0 0">
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Part Repair*"
-                                       VerticalAlignment="Center"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                            <ComboBox Grid.Column="1"/>
+                            <!-- Row 1 -->
+                            <ComboBox Grid.Row="0"
+                                  materialDesign:HintAssist.Hint="Part Repair"/>
 
-                            <TextBlock Grid.Column="2"
-                                       Text="Location*"
-                                       VerticalAlignment="Center"/>
+                            <ComboBox Grid.Row="0"
+                                  Grid.Column="2"
+                                  materialDesign:HintAssist.Hint="Location"/>
 
-                            <ComboBox Grid.Column="3"/>
+                            <!-- Row 2 -->
+                            <ComboBox Grid.Row="1"
+                                  Margin="0 12 0 0"
+                                  materialDesign:HintAssist.Hint="Non-conformance Type"/>
+
+                            <ComboBox Grid.Row="1"
+                                  Grid.Column="2"
+                                  Margin="0 12 0 0"
+                                  materialDesign:HintAssist.Hint="Overview"/>
+
+                            <!-- Row 3 -->
+                            <ComboBox Grid.Row="2"
+                                  Margin="0 12 0 0"
+                                  materialDesign:HintAssist.Hint="Zoomed View"/>
+
+                            <ComboBox Grid.Row="2"
+                                  Grid.Column="2"
+                                  Margin="0 12 0 0"
+                                  materialDesign:HintAssist.Hint="Part Information"/>
 
                         </Grid>
 
-                        <!-- Row 2 -->
-                        <Grid Margin="0,0,0,15">
+                        <!-- Buttons -->
+                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0 20 0 0">
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="300"/>
-                            </Grid.ColumnDefinitions>
+                            <Button Content="Add More Images"
+                                Margin="4"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
 
-                            <TextBlock Text="Non-conformance Type"
-                                       VerticalAlignment="Center"/>
+                            <Button Content="Add"
+                                Margin="4"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
 
-                            <ComboBox Grid.Column="1"/>
-
-                            <TextBlock Grid.Column="2"
-                                       Text="Overview"
-                                       VerticalAlignment="Center"/>
-
-                            <ComboBox Grid.Column="3"/>
-
-                        </Grid>
-
-                        <!-- Row 3 -->
-                        <Grid Margin="0,0,0,15">
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="220"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="220"/>
-                                <ColumnDefinition Width="180"/>
-                                <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="120"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="Zoomed View"
-                                       VerticalAlignment="Center"/>
-
-                            <ComboBox Grid.Column="1"/>
-
-                            <TextBlock Grid.Column="2"
-                                       Text="Part Information"
-                                       VerticalAlignment="Center"/>
-
-                            <ComboBox Grid.Column="3"/>
-
-                            <Button Grid.Column="4"
-                                    Content="Add More Images"
-                                    Height="40"/>
-
-                            <Button Grid.Column="5"
-                                    Content="Add"
-                                    Height="40"/>
-
-                            <Button Grid.Column="6"
-                                    Content="Clear"
-                                    Height="40"/>
-
-                        </Grid>
-
-                        <!-- Grid -->
-                        <DataGrid Height="132"
-                                  AutoGenerateColumns="False">
-
-                            <DataGrid.Columns>
-
-                                <DataGridTextColumn Header="DamageText"
-                                                    Binding="{Binding DamageText}"
-                                                    Width="*"/>
-
-                                <DataGridTextColumn Header="Type"
-                                                    Binding="{Binding Type}"
-                                                    Width="150"/>
-
-                                <DataGridTextColumn Header="SubType"
-                                                    Binding="{Binding SubType}"
-                                                    Width="150"/>
-
-                                <DataGridTextColumn Header="Image1"
-                                                    Binding="{Binding Image1}"
-                                                    Width="200"/>
-
-                                <DataGridTextColumn Header="Image2"
-                                                    Binding="{Binding Image2}"
-                                                    Width="200"/>
-
-                            </DataGrid.Columns>
-
-                        </DataGrid>
+                            <Button Content="Clear"
+                                Margin="4"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                        </StackPanel>
 
                     </StackPanel>
-                </GroupBox>
 
-                <!-- Bottom Buttons -->
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Margin="0,15,0,0">
+                </materialDesign:Card>
 
-                    <Button Content="Run"
-                            Width="180"
-                            Height="45"
-                            Margin="0,0,10,0"/>
+                <!-- Data Grid -->
 
-                    <Button Content="Close"
-                            Width="180"
-                            Height="45"/>
+                <materialDesign:Card Margin="0 12 0 0">
 
-                </StackPanel>
+                    <DataGrid Height="250"
+                          AutoGenerateColumns="False">
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Header="DamageText"
+                                            Binding="{Binding DamageText}"/>
+
+                            <DataGridTextColumn Header="Type"
+                                            Binding="{Binding Type}"/>
+
+                            <DataGridTextColumn Header="SubType"
+                                            Binding="{Binding SubType}"/>
+
+                            <DataGridTextColumn Header="Image1"
+                                            Binding="{Binding Image1}"/>
+
+                            <DataGridTextColumn Header="Image2"
+                                            Binding="{Binding Image2}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                </materialDesign:Card>
 
             </StackPanel>
 
         </ScrollViewer>
 
-    </DockPanel>
+        <!-- Footer -->
+
+        <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Margin="0 12 0 0">
+
+            <Button Content="Run"
+                Width="160"
+                Margin="4"
+                Style="{StaticResource MaterialDesignRaisedButton}"/>
+
+            <Button Content="Close"
+                Width="160"
+                Margin="4"
+                Style="{StaticResource MaterialDesignRaisedButton}"/>
+
+        </StackPanel>
+
+    </Grid>
 
 </Window>
