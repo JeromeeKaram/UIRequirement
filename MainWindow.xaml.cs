@@ -20,5 +20,19 @@ namespace UIRequirement
         {
             InitializeComponent();
         }
+
+        private void MenuExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void MenuAbout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(
+                "CTR Form Automation Tool V3.1\n\nDeveloped using WPF and Material Design.",
+                "About",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
     }
 }
