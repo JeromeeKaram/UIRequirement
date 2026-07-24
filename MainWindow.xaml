@@ -147,44 +147,49 @@
                             Height="50"
                             AcceptsReturn="True"/>
 
-                        <Grid Margin="0 20 0 0">
+                        <Grid Margin="0,20,0,0">
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="15" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="15" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
+                            <!-- Row 1 -->
                             <ComboBox Grid.Row="0"
-                                      materialDesign:HintAssist.Hint="Part Repair"/>
+              Grid.Column="0"
+              materialDesign:HintAssist.Hint="Part Repair" />
 
                             <ComboBox Grid.Row="0"
-                                      Grid.Column="2"
-                                      materialDesign:HintAssist.Hint="Location"/>
+              Grid.Column="2"
+              materialDesign:HintAssist.Hint="Location" />
+
+                            <ComboBox Grid.Row="0"
+              Grid.Column="4"
+              materialDesign:HintAssist.Hint="Non-conformance Type" />
+
+                            <!-- Row 2 -->
+                            <ComboBox Grid.Row="1"
+              Grid.Column="0"
+              Margin="0,12,0,0"
+              materialDesign:HintAssist.Hint="Overview" />
 
                             <ComboBox Grid.Row="1"
-                                      Margin="0 12 0 0"
-                                      materialDesign:HintAssist.Hint="Non-conformance Type"/>
+              Grid.Column="2"
+              Margin="0,12,0,0"
+              materialDesign:HintAssist.Hint="Zoomed View" />
 
                             <ComboBox Grid.Row="1"
-                                      Grid.Column="2"
-                                      Margin="0 12 0 0"
-                                      materialDesign:HintAssist.Hint="Overview"/>
-
-                            <ComboBox Grid.Row="2"
-                                      Margin="0 12 0 0"
-                                      materialDesign:HintAssist.Hint="Zoomed View"/>
-
-                            <ComboBox Grid.Row="2"
-                                      Grid.Column="2"
-                                      Margin="0 12 0 0"
-                                      materialDesign:HintAssist.Hint="Part Information"/>
+              Grid.Column="4"
+              Margin="0,12,0,0"
+              materialDesign:HintAssist.Hint="Part Information" />
 
                         </Grid>
 
