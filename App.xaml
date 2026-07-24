@@ -9,8 +9,8 @@
 
                 <materialDesign:BundledTheme
                     BaseTheme="Light"
-                    PrimaryColor="Blue"
-                    SecondaryColor="Blue"
+                    PrimaryColor="Brown"
+                    SecondaryColor="Amber"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>

@@ -7,9 +7,9 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="CTR Form Automation Tool V3.1"
-        WindowState="Maximized">
+        WindowState="Maximized" Background="#EADBC8">
 
-    <Grid Margin="16">
+    <Grid Margin="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -48,7 +48,7 @@
                            Foreground="#1565C0"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"
-                           Margin="20,0,0,0"/>
+                           Margin="20,0,10,0"/>
             </DockPanel>
 
         </materialDesign:Card>
@@ -117,7 +117,9 @@
                             <TextBox Grid.Column="8"/>
 
                         </Grid>
-
+                        <Border BorderThickness="1" BorderBrush="#1565C0"
+CornerRadius="4"
+Padding="8" Margin="0,5,0,0">
                         <TextBox
                             materialDesign:HintAssist.Hint="Enter Finding Ticket Details ..."
                             Margin="0 16 0 0"
@@ -125,7 +127,7 @@
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             VerticalScrollBarVisibility="Auto"/>
-
+                            </Border>
                     </StackPanel>
 
                 </materialDesign:Card>
@@ -135,17 +137,22 @@
                                      BorderThickness="1">
 
                     <StackPanel>
+                        
 
                         <TextBlock Text="Enter Damage Information"
                                    FontWeight="SemiBold"
                                    FontSize="14"
                                    Foreground="#1565C0"/>
 
-                        <TextBox
+                        <Border BorderThickness="1" BorderBrush="#1565C0"
+CornerRadius="4"
+Padding="8"  Margin="0,5,0,0">
+                            <TextBox
                             materialDesign:HintAssist.Hint="Enter damage description..."
                             Margin="0 16 0 0"
                             Height="50"
                             AcceptsReturn="True"/>
+                        </Border>
 
                         <Grid Margin="0,20,0,0">
 
@@ -195,7 +202,7 @@
 
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"
-                                    Margin="0 20 0 0">
+                                    Margin="0 5 0 0">
 
                             <Button Content="Add More Images"
                                     Margin="4"
