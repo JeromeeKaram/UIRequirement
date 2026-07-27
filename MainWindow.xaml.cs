@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UIRequirement.ViewModels;
 
 namespace UIRequirement
 {
@@ -19,6 +20,8 @@ namespace UIRequirement
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new MainViewModel();
         }
 
         private void MenuExit_Click(object sender, RoutedEventArgs e)
