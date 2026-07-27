@@ -7,54 +7,94 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="CTR Form Automation Tool V3.1"
-        WindowState="Maximized" Background="#EADBC8">
+        WindowState="Maximized" Background="#E3F2FD">
+
+    <Window.Resources>
+
+        <Style x:Key="BlueRaisedButton"
+               TargetType="Button"
+               BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#1565C0"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+    </Window.Resources>
 
     <Grid Margin="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <!-- Header Card -->
             <RowDefinition Height="Auto"/>
+            <!-- Menu Card -->
+            <RowDefinition Height="*"/>
+            <!-- Main Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Footer -->
         </Grid.RowDefinitions>
 
-        <!-- Material Design Header -->
+        <!-- Header Card -->
         <materialDesign:Card Grid.Row="0"
-                             Margin="0,0,0,12"
-                             Padding="0">
+                     Margin="0,0,0,8"
+                     Padding="0">
 
-            <DockPanel Height="40">
+            <Border Background="#1565C0"
+            Height="45"
+            Padding="10,0,0,0">
 
-                <Menu Background="Transparent"
-                      BorderThickness="0"
-                      VerticalAlignment="Center">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                    <MenuItem Header="_File">
-                        <MenuItem Header="_Open"/>
-                        <Separator/>
-                        <MenuItem Header="_Exit"
-                                  Click="MenuExit_Click"/>
-                    </MenuItem>
+                    <TextBlock Grid.Column="0"
+                       Text="IHI"
+                       Foreground="White"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
 
-                    <MenuItem Header="_Help">
-                        <MenuItem Header="_About"
-                                  Click="MenuAbout_Click"/>
-                    </MenuItem>
+                    <TextBlock Grid.Column="1"
+                       Text="CTR Form Automation Tool V3.1"
+                       Foreground="White"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+                </Grid>
 
-                </Menu>
+            </Border>
 
-                <TextBlock Text="CTR Form Automation Tool V3.1"
-                           FontSize="18"
-                           FontWeight="SemiBold"
-                           Foreground="#1565C0"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"
-                           Margin="20,0,10,0"/>
-            </DockPanel>
+        </materialDesign:Card>
+
+        <!-- Menu Card -->
+        <materialDesign:Card Grid.Row="1"
+                     Margin="0,0,0,12"
+                     Padding="0">
+
+            <Menu Background="Transparent"
+          BorderThickness="0">
+
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open"/>
+                    <Separator/>
+                    <MenuItem Header="_Exit"
+                      Click="MenuExit_Click"/>
+                </MenuItem>
+
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_About"
+                      Click="MenuAbout_Click"/>
+                </MenuItem>
+
+            </Menu>
 
         </materialDesign:Card>
 
         <!-- Main Content -->
-        <ScrollViewer Grid.Row="1"
+        <ScrollViewer Grid.Row="2"
                       VerticalScrollBarVisibility="Auto">
 
             <StackPanel>
@@ -218,7 +258,7 @@ Padding="8"  Margin="0,5,0,0">
 
                             <Button Margin="4"
                                     Command="{Binding AddMoreImagesCommand}"
-        Style="{StaticResource MaterialDesignRaisedButton}">
+        Style="{StaticResource BlueRaisedButton}">
 
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ImageMultiple"
@@ -232,7 +272,7 @@ Padding="8"  Margin="0,5,0,0">
 
                             <Button Margin="4"
                                     Command="{Binding AddCommand}"
-        Style="{StaticResource MaterialDesignRaisedButton}">
+        Style="{StaticResource BlueRaisedButton}">
 
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="PlusCircle"
@@ -246,7 +286,7 @@ Padding="8"  Margin="0,5,0,0">
 
                             <Button Margin="4"
                                     Command="{Binding ClearCommand}"
-        Style="{StaticResource MaterialDesignRaisedButton}">
+        Style="{StaticResource BlueRaisedButton}">
 
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Broom"
@@ -289,7 +329,7 @@ Padding="8"  Margin="0,5,0,0">
         </ScrollViewer>
 
         <!-- Footer -->
-        <StackPanel Grid.Row="2"
+        <StackPanel Grid.Row="3"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
 
@@ -297,13 +337,13 @@ Padding="8"  Margin="0,5,0,0">
                     Width="160"
                     Margin="4"
                     Command="{Binding RunCommand}"
-                    Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    Style="{StaticResource BlueRaisedButton}"/>
 
             <Button Content="Close"
                     Width="160"
                     Margin="4"
                     Command="{Binding CloseCommand}"
-                    Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    Style="{StaticResource BlueRaisedButton}"/>
 
         </StackPanel>
 
