@@ -112,10 +112,8 @@
         </materialDesign:Card>
 
         <!-- Main Content -->
-        <ScrollViewer Grid.Row="2"
-                      VerticalScrollBarVisibility="Auto">
 
-            <StackPanel>
+            <StackPanel Grid.Row="2">
 
                 <!-- Finding Ticket -->
                 <materialDesign:Card Margin="0 0 0 12"
@@ -411,8 +409,6 @@ Padding="8"  Margin="0,5,0,0">
                 </materialDesign:Card>
 
             </StackPanel>
-
-        </ScrollViewer>
 
         <!-- Footer -->
         <StackPanel Grid.Row="3"
