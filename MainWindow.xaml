@@ -169,7 +169,7 @@
                             <TextBox Grid.Column="8"/>
 
                         </Grid>
-                        <Border BorderThickness="1" BorderBrush="#EADBC8"
+                        <Border BorderThickness="1" BorderBrush="LightBlue"
 CornerRadius="4"
 Padding="8" Margin="0,5,0,0">
                         <TextBox
@@ -196,8 +196,7 @@ Padding="8" Margin="0,5,0,0">
                                    FontSize="14"
                                    Foreground="#1565C0"/>
 
-                        <Border BorderThickness="1" BorderBrush="#EADBC8"
-CornerRadius="4"
+                        <Border BorderThickness="1" BorderBrush="LightBlue" CornerRadius="4"
 Padding="8"  Margin="0,5,0,0">
                             <TextBox
                             materialDesign:HintAssist.Hint="Enter damage description..."
