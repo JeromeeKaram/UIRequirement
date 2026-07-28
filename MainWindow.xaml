@@ -141,10 +141,12 @@
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Finding Ticket No*"
-                                       VerticalAlignment="Center"/>
+                        <TextBlock VerticalAlignment="Center">
+    <Run Text="Finding Ticket No"/>
+    <Run Text="*" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
 
-                            <TextBox Grid.Column="1"
+                        <TextBox Grid.Column="1"
                                      Margin="8 0"/>
 
                             <Button Grid.Column="2"
@@ -163,26 +165,32 @@
 
                             </Button>
 
-                            <TextBlock Grid.Column="3"
-                                       Text="ESN*"
-                                       Margin="20 0 0 0"
-                                       VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="3"
+           Margin="20 0 0 0"
+           VerticalAlignment="Center">
+    <Run Text="ESN"/>
+    <Run Text="*" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
 
-                            <TextBox Grid.Column="4"/>
+                        <TextBox Grid.Column="4"/>
 
-                            <TextBlock Grid.Column="5"
-                                       Text="TSN*"
-                                       Margin="20 0 0 0"
-                                       VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="5"
+           Margin="20 0 0 0"
+           VerticalAlignment="Center">
+    <Run Text="TSN"/>
+    <Run Text="*" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
 
-                            <TextBox Grid.Column="6"/>
+                        <TextBox Grid.Column="6"/>
 
-                            <TextBlock Grid.Column="7"
-                                       Text="CSN*"
-                                       Margin="20 0 0 0"
-                                       VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="7"
+           Margin="20 0 0 0"
+           VerticalAlignment="Center">
+    <Run Text="CSN"/>
+    <Run Text="*" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
 
-                            <TextBox Grid.Column="8"/>
+                        <TextBox Grid.Column="8"/>
 
                         </Grid>
                         <Border BorderThickness="1" BorderBrush="LightBlue"
@@ -237,15 +245,31 @@ Padding="8"  Margin="0,5,0,0">
                             </Grid.RowDefinitions>
 
                             <!-- Row 1 -->
-                            <ComboBox Grid.Row="0"
-              Grid.Column="0"
-              materialDesign:HintAssist.Hint="Part Repair" />
+                        <ComboBox Grid.Row="0"
+          Grid.Column="0">
 
-                            <ComboBox Grid.Row="0"
-              Grid.Column="2"
-              materialDesign:HintAssist.Hint="Location" />
+                            <materialDesign:HintAssist.Hint>
+                                <TextBlock>
+            <Run Text="Part Repair"/>
+            <Run Text="*" Foreground="Red" FontWeight="Bold"/>
+                                </TextBlock>
+                            </materialDesign:HintAssist.Hint>
 
-                            <ComboBox Grid.Row="0"
+                        </ComboBox>
+
+                        <ComboBox Grid.Row="0"
+          Grid.Column="2">
+
+                            <materialDesign:HintAssist.Hint>
+                                <TextBlock>
+            <Run Text="Location"/>
+            <Run Text="*" Foreground="Red" FontWeight="Bold"/>
+                                </TextBlock>
+                            </materialDesign:HintAssist.Hint>
+
+                        </ComboBox>
+
+                        <ComboBox Grid.Row="0"
               Grid.Column="4"
               materialDesign:HintAssist.Hint="Non-conformance Type" />
 
