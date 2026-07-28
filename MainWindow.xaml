@@ -74,33 +74,33 @@
 
                 <!-- Header Section -->
                 <Border Grid.Column="1"
-        Background="#1565C0">
+        Background="LightBlue">
 
                     <Grid Margin="10,0">
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <!-- IHI -->
                             <ColumnDefinition Width="*"/>
                             <!-- Title -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- IHI -->
                         </Grid.ColumnDefinitions>
 
-                        <!-- IHI -->
-                        <TextBlock Grid.Column="0"
-                   Text="IHI"
-                   Margin="100,0,15,0"
-                   Foreground="White"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   VerticalAlignment="Center"/>
-
                         <!-- Title -->
-                        <TextBlock Grid.Column="1"
+                        <TextBlock Grid.Column="0"
                    Text="CTR Form Automation Tool V3.1"
-                   Foreground="White"
+                   Foreground="Black"
                    FontSize="20"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+
+                        <!-- IHI -->
+                        <TextBlock Grid.Column="1"
+                   Text="IHI"
+                   Margin="15,0,0,0"
+                   Foreground="Black"
+                   FontSize="20"
+                   FontWeight="Bold"
                    VerticalAlignment="Center"/>
 
                     </Grid>
@@ -255,7 +255,7 @@ Padding="8"  Margin="0,5,0,0">
                             <ComboBox Grid.Row="1"
               Grid.Column="0"
               Margin="0,12,0,0"
-              materialDesign:HintAssist.Hint="Overview" />
+              materialDesign:HintAssist.Hint="Overview Image" />
 
                             <ComboBox Grid.Row="1"
               Grid.Column="2"
