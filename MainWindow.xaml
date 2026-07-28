@@ -252,20 +252,89 @@ Padding="8"  Margin="0,5,0,0">
               materialDesign:HintAssist.Hint="Non-conformance Type" />
 
                             <!-- Row 2 -->
-                            <ComboBox Grid.Row="1"
-              Grid.Column="0"
-              Margin="0,12,0,0"
-              materialDesign:HintAssist.Hint="Overview Image" />
+                            <Grid Grid.Row="1"
+      Grid.Column="0"
+      Margin="0,12,0,0">
 
-                            <ComboBox Grid.Row="1"
-              Grid.Column="2"
-              Margin="0,12,0,0"
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+    <ComboBox Grid.Column="0"
+              Margin="0,0,5,0"
+              materialDesign:HintAssist.Hint="Overview Image"/>
+
+    <Button Grid.Column="1"
+            Click="OverviewInfo_Click"
+            Background="Transparent"
+            BorderThickness="0"
+            Padding="0">
+
+        <materialDesign:PackIcon Kind="InformationOutline"
+                                 Width="18"
+                                 Height="18"
+                                 Foreground="DodgerBlue"/>
+    </Button>
+
+</Grid>
+
+                            <Grid Grid.Row="1"
+      Grid.Column="2"
+      Margin="0,12,0,0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ComboBox Grid.Column="0"
+              Margin="0,0,5,0"
               materialDesign:HintAssist.Hint="Zoomed View" />
 
-                            <ComboBox Grid.Row="1"
-              Grid.Column="4"
-              Margin="0,12,0,0"
+                                <Button Grid.Column="1"
+            Click="ZoomedViewInfo_Click"
+            Background="Transparent"
+            BorderThickness="0"
+            Padding="0"
+            ToolTip="Zoomed View Information">
+
+                                    <materialDesign:PackIcon Kind="InformationOutline"
+                                 Width="18"
+                                 Height="18"
+                                 Foreground="DodgerBlue"/>
+                                </Button>
+
+                            </Grid>
+
+
+                            <Grid Grid.Row="1"
+      Grid.Column="4"
+      Margin="0,12,0,0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ComboBox Grid.Column="0"
+              Margin="0,0,5,0"
               materialDesign:HintAssist.Hint="Part Information" />
+
+                                <Button Grid.Column="1"
+            Click="PartInformationInfo_Click"
+            Background="Transparent"
+            BorderThickness="0"
+            Padding="0"
+            ToolTip="Part Information">
+
+                                    <materialDesign:PackIcon Kind="InformationOutline"
+                                 Width="18"
+                                 Height="18"
+                                 Foreground="DodgerBlue"/>
+                                </Button>
+
+                            </Grid>
 
                         </Grid>
 
