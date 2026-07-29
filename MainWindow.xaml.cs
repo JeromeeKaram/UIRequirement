@@ -17,11 +17,13 @@ namespace UIRequirement
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel _vm { get; }
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
+            _vm = new MainViewModel();
+            DataContext = _vm;
         }
 
         private void MenuExit_Click(object sender, RoutedEventArgs e)
@@ -40,31 +42,78 @@ namespace UIRequirement
 
         private void ZoomedViewInfo_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                "Select the image that provides a close-up view of the damage area. "
-                + "This image should clearly show the defect, crack, wear, dent, or other non-conformance details.",
-                "Zoomed View",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            ShowImage(_vm.SelectedZoomedView);
         }
 
         private void OverviewInfo_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                "Select the image that shows the complete part or assembly. "
-                + "This image should provide overall context and help identify the location of the damage relative to the entire component.",
-                "Overview Image",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            ShowImage(_vm.SelectedOverviewImage);
         }
 
         private void PartInformationInfo_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                "Select the image that contains part identification details such as the Part Number (P/N), Serial Number (S/N), nomenclature, ATA reference, or any markings required to uniquely identify the component.",
-                "Part Information",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            ShowImage(_vm.SelectedPartInformation);
+        }
+
+        private void ShowImage(string? imagePath)
+        {
+            if (string.IsNullOrWhiteSpace(imagePath))
+            {
+                MessageBox.Show("Please select an image first.");
+                return;
+            }
+
+            if (!System.IO.File.Exists(imagePath))
+            {
+                MessageBox.Show("The selected image could not be found.");
+                return;
+            }
+
+            var window = new ImageWindow(imagePath);
+            window.Owner = this;
+            window.ShowDialog();
+        }
+
+        private void OverviewImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox combo &&
+                combo.SelectedValue is string imagePath)
+            {
+                //ShowImage(imagePath);
+                _vm.SelectedOverviewImage = combo.SelectedValue.ToString();
+
+                // Reset the selection
+                combo.SelectedIndex = -1;
+                // or combo.SelectedItem = null;
+            }
+        }
+
+        private void ZoomedViews_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox combo &&
+                combo.SelectedValue is string imagePath)
+            {
+
+                _vm.SelectedZoomedView = combo.SelectedValue.ToString();
+                //ShowImage(imagePath);
+
+                // Reset the selection
+                combo.SelectedIndex = -1;
+                // or combo.SelectedItem = null;
+            }
+        }
+
+        private void PartsInformation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox combo &&
+                combo.SelectedValue is string imagePath)
+            {
+                //ShowImage(imagePath);
+                _vm.SelectedPartInformation = combo.SelectedValue.ToString();
+                // Reset the selection
+                combo.SelectedIndex = -1;
+                // or combo.SelectedItem = null;
+            }
         }
     }
 }

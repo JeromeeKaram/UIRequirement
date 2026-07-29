@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CTR_Form_Tool;
+//using CTR_Form_Tool;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
@@ -37,15 +37,68 @@ public partial class MainViewModel : ObservableObject
     private string inputFolderPath;
 
     [ObservableProperty]
-    private string ticketDescription;
+    private string ticketDetails;
 
     public ObservableCollection<DamageInfo> Damages { get; } = new();
+
+    [ObservableProperty]
+    private ObservableCollection<KeyValuePair<string, string>> overviewImages = new();
+
+    [ObservableProperty]
+    private ObservableCollection<KeyValuePair<string, string>> partsInformation = new();
+
+    [ObservableProperty]
+    private ObservableCollection<KeyValuePair<string, string>> zoomedViews = new();
+
+    [ObservableProperty]
+    private string? selectedZoomedView;
+
+    [ObservableProperty]
+    private string? selectedOverviewImage;
+
+    [ObservableProperty]
+    private string? selectedPartInformation;
 
     [RelayCommand]
     private async Task Load()
     {
         //MessageBox.Show("Load clicked");
-        await InputFolderSelected();
+        //await InputFolderSelected();
+
+        var retObject = await GetDataAsync();
+
+        ESN = retObject.ESN;
+        TSN = retObject.TSN;
+        CSN = retObject.CSN;
+
+        TicketDetails = retObject.TicketDetails;
+
+        var imagesKeyValueList = retObject.Images
+    .Select(path => new KeyValuePair<string, string>(
+        Path.GetFileName(path),
+        path))
+    .ToList();
+
+        overviewImages.Clear();
+
+        foreach (var item in imagesKeyValueList)
+        {
+            overviewImages.Add(item);
+        }
+
+        zoomedViews.Clear();
+
+        foreach (var item in imagesKeyValueList)
+        {
+            zoomedViews.Add(item);
+        }
+
+        partsInformation.Clear();
+
+        foreach (var item in imagesKeyValueList)
+        {
+            partsInformation.Add(item);
+        }
     }
 
     [RelayCommand]
@@ -151,35 +204,35 @@ public partial class MainViewModel : ObservableObject
 
                 foreach (string file in Directory.GetFiles(tempFolder, "*.jpg"))
                 {
-                    File.Copy(file,Path.Combine(folder, Path.GetFileName(file)), true);
+                    File.Copy(file, Path.Combine(folder, Path.GetFileName(file)), true);
                 }
             }
 
             //-- Show the Damage information in UI
-            var oCTR = new CTRReader();
-            oCTR.updateFromRedmine(filename);
-            string desc = "";
-            foreach (string s in oCTR.m_lstDamageInfo)
-                desc = desc + s + "\r\n";
-            TicketDescription = desc.Trim();
+            //var oCTR = new CTRReader();
+            //oCTR.updateFromRedmine(filename);
+            //string desc = "";
+            //foreach (string s in oCTR.m_lstDamageInfo)
+            //    desc = desc + s + "\r\n";
+            //TicketDescription = desc.Trim();
 
-            //Update
-            if (oCTR.m_sESN.Length > 0) ESN = oCTR.m_sESN;
-            if (oCTR.m_sTSN.Length > 0) TSN = oCTR.m_sTSN;
-            if (oCTR.m_sCSN.Length > 0) CSN = oCTR.m_sCSN;
+            ////Update
+            //if (oCTR.m_sESN.Length > 0) ESN = oCTR.m_sESN;
+            //if (oCTR.m_sTSN.Length > 0) TSN = oCTR.m_sTSN;
+            //if (oCTR.m_sCSN.Length > 0) CSN = oCTR.m_sCSN;
 
-            //Load Images
-            //cbImage1.Items.Clear();
-            //cbImage2.Items.Clear();
+            ////Load Images
+            ////cbImage1.Items.Clear();
+            ////cbImage2.Items.Clear();
 
 
-            Utility.WriteErrorLog("", "", folder);
-            string[] imageFiles = Directory.GetFiles(folder, "*.*")
-                                                    .Where(file => file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
-                                                    || file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
-                                                    || file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
-                                                    || file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)
-                                                    || file.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
+            //Utility.WriteErrorLog("", "", folder);
+            //string[] imageFiles = Directory.GetFiles(folder, "*.*")
+            //                                        .Where(file => file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
+            //                                        || file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
+            //                                        || file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+            //                                        || file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)
+            //                                        || file.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
 
 
             //cbImage1.Items.Add("No Image");
@@ -208,6 +261,26 @@ public partial class MainViewModel : ObservableObject
         {
             IsLoading = false;
         }
+    }
+
+    private async Task<Ret> GetDataAsync()
+    {
+        return new Ret
+        {
+            ESN = "ESN001",
+            TSN = "TSN001",
+            CSN = "CSN001",
+            TicketDetails = "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ",
+
+            Images =
+        {
+            new(@"D:\iHi\CTR\Finding CTR Form Tool\Finding CTR Form Tool\CTR Form Tool\bin\Debug\bin\images\Finding\1.jpg"),
+            new(@"D:\iHi\CTR\Finding CTR Form Tool\Finding CTR Form Tool\CTR Form Tool\bin\Debug\bin\images\Finding\R0018608.JPG"),
+            new(@"D:\iHi\CTR\Finding CTR Form Tool\Finding CTR Form Tool\CTR Form Tool\bin\Debug\bin\images\Finding\R0018609.JPG"),
+            new(@"D:\iHi\CTR\Finding CTR Form Tool\Finding CTR Form Tool\CTR Form Tool\bin\Debug\bin\images\Finding\R0018611.JPG"),
+            new(@"D:\iHi\CTR\Finding CTR Form Tool\Finding CTR Form Tool\CTR Form Tool\bin\Debug\bin\images\Finding\R0018612.JPG"),
+        }
+        };
     }
 
     //private async Task<int> getRedmineImages(string issueId, string encticket)

@@ -169,30 +169,30 @@
 
                         <TextBlock Grid.Column="3"
            Margin="20 0 0 0"
-           VerticalAlignment="Center" Text="{Binding ESN}">
+           VerticalAlignment="Center" >
     <Run Text="ESN"/>
     <Run Text="*" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
 
-                        <TextBox Grid.Column="4"/>
+                        <TextBox Grid.Column="4" Text="{Binding ESN}"/>
 
                         <TextBlock Grid.Column="5"
            Margin="20 0 0 0"
-           VerticalAlignment="Center" Text="{Binding TSN}">
+           VerticalAlignment="Center" >
     <Run Text="TSN"/>
     <Run Text="*" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
 
-                        <TextBox Grid.Column="6"/>
+                        <TextBox Grid.Column="6" Text="{Binding TSN}"/>
 
                         <TextBlock Grid.Column="7"
            Margin="20 0 0 0"
-           VerticalAlignment="Center" Text="{Binding CSN}">
+           VerticalAlignment="Center" >
     <Run Text="CSN"/>
     <Run Text="*" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
 
-                        <TextBox Grid.Column="8"/>
+                        <TextBox Grid.Column="8" Text="{Binding CSN}"/>
 
                         </Grid>
                         <Border BorderThickness="1" BorderBrush="LightBlue"
@@ -204,7 +204,7 @@ Padding="8" Margin="0,5,0,0">
                             Height="50"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
-                            VerticalScrollBarVisibility="Auto" Text="{Binding TicketDescription}"/>
+                            VerticalScrollBarVisibility="Auto" Text="{Binding TicketDetails}"/>
                             </Border>
                     </StackPanel>
 
@@ -287,6 +287,11 @@ Padding="8"  Margin="0,5,0,0">
 
     <ComboBox Grid.Column="0"
               Margin="0,0,5,0"
+              ItemsSource="{Binding OverviewImages}"
+                                              DisplayMemberPath="Key"
+SelectedValuePath="Value"
+SelectedValue="{Binding selectedOverviewImage}"
+              SelectionChanged="OverviewImages_SelectionChanged"
               materialDesign:HintAssist.Hint="Overview Image"/>
 
     <Button Grid.Column="1"
@@ -313,7 +318,11 @@ Padding="8"  Margin="0,5,0,0">
                                 </Grid.ColumnDefinitions>
 
                                 <ComboBox Grid.Column="0"
-              Margin="0,0,5,0"
+              Margin="0,0,5,0" ItemsSource="{Binding ZoomedViews}"
+                                          DisplayMemberPath="Key"
+          SelectedValuePath="Value"
+          SelectedValue="{Binding selectedZoomedView}"
+                                          SelectionChanged="ZoomedViews_SelectionChanged"
               materialDesign:HintAssist.Hint="Zoomed View" />
 
                                 <Button Grid.Column="1"
@@ -342,7 +351,11 @@ Padding="8"  Margin="0,5,0,0">
                                 </Grid.ColumnDefinitions>
 
                                 <ComboBox Grid.Column="0"
-              Margin="0,0,5,0"
+              Margin="0,0,5,0" ItemsSource="{Binding PartsInformation}"
+                                          DisplayMemberPath="Key"
+          SelectedValuePath="Value"
+          SelectedValue="{Binding selectedPartInformation}"
+                                          SelectionChanged="PartsInformation_SelectionChanged"
               materialDesign:HintAssist.Hint="Part Information" />
 
                                 <Button Grid.Column="1"
