@@ -11,6 +11,8 @@
 
     <Window.Resources>
 
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        
         <Style x:Key="BlueRaisedButton"
                TargetType="Button"
                BasedOn="{StaticResource MaterialDesignRaisedButton}">
@@ -92,7 +94,7 @@
                    FontSize="20"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center" Margin="0,0,180,0"/>
 
                         <!-- IHI -->
                         <TextBlock Grid.Column="1"
@@ -146,10 +148,10 @@
     <Run Text="*" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
 
-                        <TextBox Grid.Column="1"
-                                     Margin="8 0"/>
+                        <TextBox x:Name ="txtInputFolderPath" Grid.Column="1"
+                                     Margin="8 0" Text="{Binding InputFolderPath}"/>
 
-                            <Button Grid.Column="2"
+                        <Button x:Name="btnLoad" Grid.Column="2"
                                     Command="{Binding LoadCommand}"
         Style="{StaticResource MaterialDesignOutlinedButton}"
         Padding="10,5">
@@ -167,7 +169,7 @@
 
                         <TextBlock Grid.Column="3"
            Margin="20 0 0 0"
-           VerticalAlignment="Center">
+           VerticalAlignment="Center" Text="{Binding ESN}">
     <Run Text="ESN"/>
     <Run Text="*" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
@@ -176,7 +178,7 @@
 
                         <TextBlock Grid.Column="5"
            Margin="20 0 0 0"
-           VerticalAlignment="Center">
+           VerticalAlignment="Center" Text="{Binding TSN}">
     <Run Text="TSN"/>
     <Run Text="*" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
@@ -185,7 +187,7 @@
 
                         <TextBlock Grid.Column="7"
            Margin="20 0 0 0"
-           VerticalAlignment="Center">
+           VerticalAlignment="Center" Text="{Binding CSN}">
     <Run Text="CSN"/>
     <Run Text="*" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
@@ -202,7 +204,7 @@ Padding="8" Margin="0,5,0,0">
                             Height="50"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
-                            VerticalScrollBarVisibility="Auto"/>
+                            VerticalScrollBarVisibility="Auto" Text="{Binding TicketDescription}"/>
                             </Border>
                     </StackPanel>
 
@@ -452,6 +454,31 @@ Padding="8"  Margin="0,5,0,0">
                     Style="{StaticResource BlueRaisedButton}"/>
 
         </StackPanel>
+
+        <!-- Loading Overlay -->
+        <!--<Border Grid.RowSpan="4"
+        Background="#80000000"
+        Panel.ZIndex="999"
+        Visibility="{Binding IsLoading,
+                             Converter={StaticResource BoolToVisibilityConverter}}">
+
+            <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+
+                <ProgressBar
+            Width="500"
+            Height="30"
+            IsIndeterminate="True"/>
+
+                <TextBlock Text="Loading..."
+                   Margin="0,15,0,0"
+                   Foreground="White"
+                   FontSize="16"
+                   HorizontalAlignment="Center"/>
+
+            </StackPanel>
+
+        </Border>-->
 
     </Grid>
 
