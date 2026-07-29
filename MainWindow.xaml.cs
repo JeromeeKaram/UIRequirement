@@ -74,46 +74,46 @@ namespace UIRequirement
             window.ShowDialog();
         }
 
-        private void OverviewImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is ComboBox combo &&
-                combo.SelectedValue is string imagePath)
-            {
-                //ShowImage(imagePath);
-                _vm.SelectedOverviewImage = combo.SelectedValue.ToString();
+        //private void OverviewImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (sender is ComboBox combo &&
+        //        combo.SelectedValue is string imagePath)
+        //    {
+        //        //ShowImage(imagePath);
+        //        _vm.SelectedOverviewImage = combo.SelectedValue.ToString();
 
-                // Reset the selection
-                combo.SelectedIndex = -1;
-                // or combo.SelectedItem = null;
-            }
-        }
+        //        // Reset the selection
+        //        //combo.SelectedIndex = -1;
+        //        // or combo.SelectedItem = null;
+        //    }
+        //}
 
-        private void ZoomedViews_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is ComboBox combo &&
-                combo.SelectedValue is string imagePath)
-            {
+        //private void ZoomedViews_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (sender is ComboBox combo &&
+        //        combo.SelectedValue is string imagePath)
+        //    {
 
-                _vm.SelectedZoomedView = combo.SelectedValue.ToString();
-                //ShowImage(imagePath);
+        //        _vm.SelectedZoomedView = combo.SelectedValue.ToString();
+        //        //ShowImage(imagePath);
 
-                // Reset the selection
-                combo.SelectedIndex = -1;
-                // or combo.SelectedItem = null;
-            }
-        }
+        //        // Reset the selection
+        //        //combo.SelectedIndex = -1;
+        //        // or combo.SelectedItem = null;
+        //    }
+        //}
 
-        private void PartsInformation_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is ComboBox combo &&
-                combo.SelectedValue is string imagePath)
-            {
-                //ShowImage(imagePath);
-                _vm.SelectedPartInformation = combo.SelectedValue.ToString();
-                // Reset the selection
-                combo.SelectedIndex = -1;
-                // or combo.SelectedItem = null;
-            }
-        }
+        //private void PartsInformation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (sender is ComboBox combo &&
+        //        combo.SelectedValue is string imagePath)
+        //    {
+        //        //ShowImage(imagePath);
+        //        _vm.SelectedPartInformation = combo.SelectedValue.ToString();
+        //        // Reset the selection
+        //        //combo.SelectedIndex = -1;
+        //        // or combo.SelectedItem = null;
+        //    }
+        //}
     }
 }

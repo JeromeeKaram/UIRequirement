@@ -290,8 +290,7 @@ Padding="8"  Margin="0,5,0,0">
               ItemsSource="{Binding OverviewImages}"
                                               DisplayMemberPath="Key"
 SelectedValuePath="Value"
-SelectedValue="{Binding selectedOverviewImage}"
-              SelectionChanged="OverviewImages_SelectionChanged"
+SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Overview Image"/>
 
     <Button Grid.Column="1"
@@ -321,8 +320,7 @@ SelectedValue="{Binding selectedOverviewImage}"
               Margin="0,0,5,0" ItemsSource="{Binding ZoomedViews}"
                                           DisplayMemberPath="Key"
           SelectedValuePath="Value"
-          SelectedValue="{Binding selectedZoomedView}"
-                                          SelectionChanged="ZoomedViews_SelectionChanged"
+          SelectedValue="{Binding SelectedZoomedView, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Zoomed View" />
 
                                 <Button Grid.Column="1"
@@ -354,8 +352,7 @@ SelectedValue="{Binding selectedOverviewImage}"
               Margin="0,0,5,0" ItemsSource="{Binding PartsInformation}"
                                           DisplayMemberPath="Key"
           SelectedValuePath="Value"
-          SelectedValue="{Binding selectedPartInformation}"
-                                          SelectionChanged="PartsInformation_SelectionChanged"
+          SelectedValue="{Binding SelectedPartInformation, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Part Information" />
 
                                 <Button Grid.Column="1"
