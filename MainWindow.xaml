@@ -202,7 +202,7 @@ Padding="8" Margin="0,3,0,0">
                         <TextBox
                             materialDesign:HintAssist.Hint="Enter Finding Ticket Details ..."
                             Margin="0 1 0 0"
-                            Height="50"
+                            Height="65"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             VerticalScrollBarVisibility="Auto" Text="{Binding TicketDetails}"/>
@@ -224,11 +224,11 @@ Padding="8" Margin="0,3,0,0">
                                    Foreground="#1565C0"/>
 
                     <Border BorderThickness="1" BorderBrush="LightBlue" CornerRadius="4"
-Padding="8"  Margin="0,5,0,0">
+Padding="8"  Margin="0,3,0,0">
                         <TextBox Text="{Binding DamageDescription}"
                             materialDesign:HintAssist.Hint="Enter damage description..."
-                            Margin="0 16 0 0"
-                            Height="50"
+                            Margin="0 1 0 0"
+                            Height="65"
                             AcceptsReturn="True"/>
                     </Border>
 
