@@ -10,6 +10,10 @@ namespace UIRequirement.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
+    private readonly string sDir =
+        Path.GetDirectoryName(
+            System.Reflection.Assembly.GetEntryAssembly()!.Location)!;
+
     [ObservableProperty]
     private string? findingTicketNo;
 
@@ -162,7 +166,7 @@ public partial class MainViewModel : ObservableObject
         try
         {
             IsLoading = true;
-            string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            //string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             var folder = Path.Combine(sDir, "bin", "images", "Finding");
 
             //Utility.WriteErrorLog("", "", folder);
@@ -318,7 +322,7 @@ public partial class MainViewModel : ObservableObject
             ReadAscii();
 
             //URLS
-            string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            //string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             List<string> lstLines = Utility.ReadFile(sDir + "\\bin\\redminedata.txt");
             for (int i = 0; i < lstLines.Count; i++)
             {
@@ -359,7 +363,7 @@ public partial class MainViewModel : ObservableObject
 
             //string xlFile = Utility.CopyFileToTempPath(Utility.m_sBinPath + "Config.xlsx");
 
-            string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            //string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string xlFile = Utility.CopyFileToTempPath(sDir + "\\bin\\Config.xlsx");
 
             ExcelPackage oExcel = new ExcelPackage(new FileInfo(xlFile));
@@ -500,7 +504,8 @@ public partial class MainViewModel : ObservableObject
         try
         {
             //Read Ascii
-            List<string> lst = Utility.ReadFile(Utility.m_sBinPath + "ascii.txt");
+            //string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            List<string> lst = Utility.ReadFile(sDir + "\\bin\\ascii.txt");
             foreach (string s in lst)
             {
                 List<string> lstSplits = Utility.SplitString(s, "=");
