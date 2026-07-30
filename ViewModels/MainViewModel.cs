@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Windows;
 using UIRequirement.Models;
+using UIRequirement.Views;
 
 namespace UIRequirement.ViewModels;
 
@@ -49,6 +50,7 @@ public partial class MainViewModel : ObservableObject
 
     List<ConfigInfo> lstConfigs = new List<ConfigInfo>();
     List<AsciiInfo> lstAscii = new List<AsciiInfo>();
+    List<ManulaCriteria> lstManulaCriteria = new List<ManulaCriteria>(0);
 
     List<ManualCriteria> lstManualCriteria = new List<ManualCriteria>(0);
 
@@ -617,12 +619,12 @@ public partial class MainViewModel : ObservableObject
         try
         {
             sManualCriteria = "";
-            if (cbType.SelectedItem != null && cbSubType.SelectedItem != null && cbNonConformanceType.SelectedItem != null)
+            if (!string.IsNullOrEmpty(SelectedRepairPart) && !string.IsNullOrEmpty(SelectedLocation) && !string.IsNullOrEmpty(SelectedNonConformanceType))
             {
-                string type = cbType.SelectedItem.ToString();
-                string subtype = cbSubType.SelectedItem.ToString();
-                string mc = cbNonConformanceType.SelectedItem.ToString();
-                foreach (ManulaCriteria oo in lstManulaCriteria)
+                string type = SelectedRepairPart.ToString();
+                string subtype = SelectedLocation.ToString();
+                string mc = SelectedNonConformanceType.ToString();
+                foreach (var oo in lstManulaCriteria)
                 {
                     if (oo.m_sType == type && oo.m_sSubType == subtype)
                     {
@@ -630,9 +632,14 @@ public partial class MainViewModel : ObservableObject
                         {
                             if (oo.dtVals[mc].Count > 1)
                             {
-                                UIManualCriteria oUI = new UIManualCriteria(oo.dtVals[mc]);
-                                oUI.ShowDialog();
-                                sManualCriteria = oUI.ManualCriteria_Selected;
+                                var oUI = new UIManualCriteria(oo.dtVals[mc]);
+
+                                bool? result = oUI.ShowDialog();
+
+                                if (result == true)
+                                {
+                                    sManualCriteria = oUI.ManualCriteria_Selected;
+                                }
                             }
                             else if (oo.dtVals[mc].Count == 1)
                             {

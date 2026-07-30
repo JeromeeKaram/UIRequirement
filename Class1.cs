@@ -108,3 +108,10 @@ public class DamageRecord
     public string Image2 { get; set; } = "";
     public string Image3 { get; set; } = "";
 }
+
+public class ManulaCriteria
+{
+    public string m_sType = "";
+    public string m_sSubType = "";
+    public Dictionary<string, List<string>> dtVals = new Dictionary<string, List<string>>();
+}
