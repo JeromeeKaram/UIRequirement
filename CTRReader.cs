@@ -1031,8 +1031,8 @@ class CTRReader
                 float diff = 0f;
                 if (picture.Rotation == 90 || picture.Rotation == 270)
                 {
-                    var img = Image.FromFile(file);
-                    float before = oshObj.m_fHeight;
+                var img = Image.FromFile(file);
+                float before = oshObj.m_fHeight;
                     oshObj.m_fHeight = oshObj.m_fHeight * img.Height / img.Width;
                     diff = before - oshObj.m_fHeight;
                     oshObj.m_fImgTop = oshObj.m_fImgTop + diff;

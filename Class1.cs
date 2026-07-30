@@ -99,8 +99,8 @@ public class ManualCriteria
     public Dictionary<string, List<string>> dtVals = new Dictionary<string, List<string>>();
 }
 
-public class AsciiInfo
-{
-    public int m_nAsciiNum = 0;
-    public string m_sVal = "";
-}
+//public class AsciiInfo
+//{
+//    public int m_nAsciiNum = 0;
+//    public string m_sVal = "";
+//}

@@ -97,40 +97,40 @@ public partial class MainViewModel : ObservableObject
         //MessageBox.Show("Load clicked");
         await InputFolderSelected();
 
-        var retObject = await GetDataAsync();
+        //var retObject = await GetDataAsync();
 
-        ESN = retObject.ESN;
-        TSN = retObject.TSN;
-        CSN = retObject.CSN;
+    //    ESN = retObject.ESN;
+    //    TSN = retObject.TSN;
+    //    CSN = retObject.CSN;
 
-        TicketDetails = retObject.TicketDetails;
+    //    TicketDetails = retObject.TicketDetails;
 
-        var imagesKeyValueList = retObject.Images
-    .Select(path => new KeyValuePair<string, string>(
-        Path.GetFileName(path),
-        path))
-    .ToList();
+    //    var imagesKeyValueList = retObject.Images
+    //.Select(path => new KeyValuePair<string, string>(
+    //    Path.GetFileName(path),
+    //    path))
+    //.ToList();
 
-        overviewImages.Clear();
+    //    overviewImages.Clear();
 
-        foreach (var item in imagesKeyValueList)
-        {
-            overviewImages.Add(item);
-        }
+    //    foreach (var item in imagesKeyValueList)
+    //    {
+    //        overviewImages.Add(item);
+    //    }
 
-        zoomedViews.Clear();
+    //    zoomedViews.Clear();
 
-        foreach (var item in imagesKeyValueList)
-        {
-            zoomedViews.Add(item);
-        }
+    //    foreach (var item in imagesKeyValueList)
+    //    {
+    //        zoomedViews.Add(item);
+    //    }
 
-        partsInformation.Clear();
+    //    partsInformation.Clear();
 
-        foreach (var item in imagesKeyValueList)
-        {
-            partsInformation.Add(item);
-        }
+    //    foreach (var item in imagesKeyValueList)
+    //    {
+    //        partsInformation.Add(item);
+    //    }
     }
 
     [RelayCommand]
@@ -169,7 +169,6 @@ public partial class MainViewModel : ObservableObject
         try
         {
             IsLoading = true;
-            //string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             var folder = Path.Combine(sDir, "bin", "images", "Finding");
 
             //Utility.WriteErrorLog("", "", folder);
@@ -192,41 +191,41 @@ public partial class MainViewModel : ObservableObject
 
             if (Utility.m_eRUN == RUN.IHI)
             {
-                //string input = InputFolderPath?.Trim() ?? "";
+                string input = InputFolderPath?.Trim() ?? "";
 
-                //string findingTicket = "";
-                //string encTicket = "";
+                string findingTicket = "";
+                string encTicket = "";
 
-                //if (input.Contains(','))
-                //{
-                //    string[] parts = input.Split(',');
+                if (input.Contains(','))
+                {
+                    string[] parts = input.Split(',');
 
-                //    findingTicket = parts[0].Trim();
+                    findingTicket = parts[0].Trim();
 
-                //    if (parts.Length > 1)
-                //        encTicket = parts[1].Trim();
-                //}
-                //else
-                //{
-                //    findingTicket = input;
-                //}
+                    if (parts.Length > 1)
+                        encTicket = parts[1].Trim();
+                }
+                else
+                {
+                    findingTicket = input;
+                }
 
                 //int imageCount = await getRedmineImages(findingTicket, encTicket);
 
                 //await WaitForImagesAsync(FindingFolder, imageCount);
 
-                //filename = Path.Combine(sDir, "bin", "description.txt");
+                filename = Path.Combine(sDir, "bin", "description.txt");
 
-                //string encFile = Path.Combine(sDir, "bin", "ENC.txt");
+                string encFile = Path.Combine(sDir, "bin", "ENC.txt");
 
-                //if (File.Exists(encFile))
-                //{
-                //    string[] lines = File.ReadAllLines(encFile);
+                if (File.Exists(encFile))
+                {
+                    string[] lines = File.ReadAllLines(encFile);
 
-                //    if (lines.Length > 0) ESN = lines[0];
-                //    if (lines.Length > 1) TSN = lines[1];
-                //    if (lines.Length > 2) CSN = lines[2];
-                //}
+                    if (lines.Length > 0) ESN = lines[0];
+                    if (lines.Length > 1) TSN = lines[1];
+                    if (lines.Length > 2) CSN = lines[2];
+                }
             }
             else
             {
@@ -240,49 +239,61 @@ public partial class MainViewModel : ObservableObject
                 }
             }
 
-            //-- Show the Damage information in UI
-            //var oCTR = new CTRReader();
-            //oCTR.updateFromRedmine(filename);
-            //string desc = "";
-            //foreach (string s in oCTR.m_lstDamageInfo)
-            //    desc = desc + s + "\r\n";
-            //TicketDescription = desc.Trim();
+            //--Show the Damage information in UI
+            var oCTR = new CTRReader();
+            oCTR.updateFromRedmine(filename);
+            string desc = "";
+            foreach (string s in oCTR.m_lstDamageInfo)
+                desc = desc + s + "\r\n";
+            TicketDetails = desc.Trim();
 
-            ////Update
-            //if (oCTR.m_sESN.Length > 0) ESN = oCTR.m_sESN;
-            //if (oCTR.m_sTSN.Length > 0) TSN = oCTR.m_sTSN;
-            //if (oCTR.m_sCSN.Length > 0) CSN = oCTR.m_sCSN;
+            //Update
+            if (oCTR.m_sESN.Length > 0) ESN = oCTR.m_sESN;
+            if (oCTR.m_sTSN.Length > 0) TSN = oCTR.m_sTSN;
+            if (oCTR.m_sCSN.Length > 0) CSN = oCTR.m_sCSN;
 
-            ////Load Images
-            ////cbImage1.Items.Clear();
-            ////cbImage2.Items.Clear();
+            //Load Images
 
+            //cbImage1.Items.Clear();
+            //cbImage2.Items.Clear();
+            //cbImage3.Items.Clear(); 
 
-            //Utility.WriteErrorLog("", "", folder);
-            //string[] imageFiles = Directory.GetFiles(folder, "*.*")
-            //                                        .Where(file => file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
-            //                                        || file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
-            //                                        || file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
-            //                                        || file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)
-            //                                        || file.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
+            ZoomedViews.Clear();
+            OverviewImages.Clear();
+            PartsInformation.Clear();
 
+            Utility.WriteErrorLog("", "", folder);
+            string[] imageFiles = Directory.GetFiles(folder, "*.*")
+                                                    .Where(file => file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
+                                                    || file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
+                                                    || file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+                                                    || file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)
+                                                    || file.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            ZoomedViews.Add(new KeyValuePair<string, string>("No Image", ""));
+            OverviewImages.Add(new KeyValuePair<string, string>("No Image", ""));
+            PartsInformation.Add(new KeyValuePair<string, string>("No Image", ""));
 
             //cbImage1.Items.Add("No Image");
             //cbImage2.Items.Add("No Image");
             //cbImage3.Items.Add("No Image");
 
-            //if (imageFiles != null && imageFiles.Length > 0)
-            //{
-            //    foreach (string img in imageFiles)
-            //    {
-            //        cbImage1.Items.Add(System.IO.Path.GetFileName(img));
-            //        cbImage2.Items.Add(System.IO.Path.GetFileName(img));
-            //        cbImage3.Items.Add(System.IO.Path.GetFileName(img));
-            //    }
-            //}
+            if (imageFiles != null && imageFiles.Length > 0)
+            {
+                foreach (string img in imageFiles)
+                {
+                    ZoomedViews.Add(new KeyValuePair<string, string>(System.IO.Path.GetFileName(img), img));
+                    OverviewImages.Add(new KeyValuePair<string, string>(System.IO.Path.GetFileName(img), img));
+                    PartsInformation.Add(new KeyValuePair<string, string>(System.IO.Path.GetFileName(img), img));
+                }
+            }
             //cbImage1.SelectedIndex = 0;
             //cbImage2.SelectedIndex = 0;
             //cbImage3.SelectedIndex = 0;
+
+            SelectedOverviewImage = OverviewImages.FirstOrDefault().Value;
+            SelectedZoomedView = ZoomedViews.FirstOrDefault().Value;
+            SelectedPartInformation = PartsInformation.FirstOrDefault().Value;
 
         }
         catch (Exception ee)
