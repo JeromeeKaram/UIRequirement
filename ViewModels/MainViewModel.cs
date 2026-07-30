@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using UIRequirement.Models;
 using UIRequirement.Views;
 
@@ -182,7 +183,54 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Run()
     {
-        MessageBox.Show("Run");
+        try
+        {
+            if (validateInputs())
+            {
+
+                //this.TopMost = true; TODO
+                IsLoading = true;
+
+                //Create Output directory
+                string outputDir = sDir;
+
+                //---------------- Read & write ---------------------------
+
+                //Write the data
+
+                string template = "";
+                foreach (ConfigInfo config in lstConfigs)
+                {
+                    if (config.m_sType == SelectedRepairPart && config.m_sSubType == SelectedLocation)
+                    {
+                        template = Utility.m_sBinPath + "Templates\\" + config.m_sFile;
+                    }
+                }
+                if (template.Length > 0)
+                {
+                    //string finding = Utility.SplitString(InputFolderPath, ",")[0];
+                    //var result = oCTR.write(outputDir, lstDamages, ESN, TSN, CSN, finding);
+                    //if (result == DialogResult.Yes)
+                    //{
+                    //    //this.TopMost = false; TODO
+                    //    richTextBox1.Text = "";
+                    //    lstDamages.Clear();
+                    //    DamageRecords.Clear();
+                    //    OverviewImages.Clear();
+                    //    ZoomedViews.Clear();
+                    //    PartsInformation.Clear();
+                    //    Utility.InformationUser("Sucessfully created CTR Form");
+                    //}
+                }
+                IsLoading = false;
+
+                //this.TopMost = false; TODO
+            }
+        }
+        catch (Exception ee)
+        {
+            Utility.WriteErrorLog(ee);
+        }
     }
 
     [RelayCommand]
@@ -637,5 +685,44 @@ public partial class MainViewModel : ObservableObject
         //  if (dmg.m_sImage4.Length > 0 && System.IO.File.Exists(dmg.m_sImage4)) imgCnt = imgCnt + 1;
         if (imgCnt > 2) nextPage = 2;
         return nextPage;
+    }
+
+    private bool validateInputs()
+    {
+        try
+        {
+            if (DamageRecords.Count == 0)
+            {
+                Utility.WarnUser("Please add Damage Information");
+                return false;
+            }
+
+            string str = "";
+            if (string.IsNullOrEmpty(ESN))
+            {
+                str = "ESN ";
+            }
+            if (string.IsNullOrEmpty(TSN))
+            {
+                str = str + "TSN ";
+            }
+            if (string.IsNullOrEmpty(CSN))
+            {
+                str = str + "CSN ";
+            }
+            if (str.Length > 0)
+            {
+                MessageBoxResult res = MessageBox.Show("Below information is not avaiable.\n" + str.Trim() +
+    "\n\nAnyway do you want continue?", "Question?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (res == MessageBoxResult.No)
+                    return false;
+            }
+        }
+        catch (Exception ee)
+        {
+            Utility.WriteErrorLog(ee);
+        }
+        return true;
     }
 }

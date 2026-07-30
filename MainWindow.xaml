@@ -477,7 +477,7 @@ SelectedItem="{Binding SelectedOverviewImage, Mode=TwoWay}"
         </StackPanel>
 
         <!-- Loading Overlay -->
-        <!--<Border Grid.RowSpan="4"
+        <Border Grid.RowSpan="4"
         Background="#80000000"
         Panel.ZIndex="999"
         Visibility="{Binding IsLoading,
@@ -499,7 +499,7 @@ SelectedItem="{Binding SelectedOverviewImage, Mode=TwoWay}"
 
             </StackPanel>
 
-        </Border>-->
+        </Border>
 
     </Grid>
 
