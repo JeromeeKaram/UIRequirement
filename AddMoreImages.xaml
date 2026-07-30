@@ -82,9 +82,11 @@
 
                 <!-- Images Added -->
                 <ListBox x:Name="lbImagesAdded"
+                         BorderBrush="Black"
                          Grid.RowSpan="3"
                          Grid.Column="2"
                          Width="160"
+                         BorderThickness="1"
                          Height="225"/>
             </Grid>
         </GroupBox>
