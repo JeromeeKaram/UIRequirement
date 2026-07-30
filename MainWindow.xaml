@@ -376,9 +376,9 @@ SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
                                     HorizontalAlignment="Right"
                                     Margin="0 5 0 0">
 
-                            <Button Margin="4"
-                                    Command="{Binding AddMoreImagesCommand}"
-        Style="{StaticResource BlueRaisedButton}">
+                            <Button Margin="4" x:Name="btnAddMoreImages"
+                                    
+        Style="{StaticResource BlueRaisedButton}" Click="btnAddMoreImages_Click">
 
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ImageMultiple"
