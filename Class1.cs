@@ -99,8 +99,12 @@ public class ManualCriteria
     public Dictionary<string, List<string>> dtVals = new Dictionary<string, List<string>>();
 }
 
-//public class AsciiInfo
-//{
-//    public int m_nAsciiNum = 0;
-//    public string m_sVal = "";
-//}
+public class DamageRecord
+{
+    public string DamageText { get; set; } = "";
+    public string Type { get; set; } = "";
+    public string SubType { get; set; } = "";
+    public string Image1 { get; set; } = "";
+    public string Image2 { get; set; } = "";
+    public string Image3 { get; set; } = "";
+}

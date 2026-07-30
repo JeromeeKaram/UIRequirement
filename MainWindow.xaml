@@ -198,10 +198,10 @@
                     </Grid>
                     <Border BorderThickness="1" BorderBrush="LightBlue"
 CornerRadius="4"
-Padding="8" Margin="0,5,0,0">
+Padding="8" Margin="0,3,0,0">
                         <TextBox
                             materialDesign:HintAssist.Hint="Enter Finding Ticket Details ..."
-                            Margin="0 16 0 0"
+                            Margin="0 1 0 0"
                             Height="50"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
@@ -225,7 +225,7 @@ Padding="8" Margin="0,5,0,0">
 
                     <Border BorderThickness="1" BorderBrush="LightBlue" CornerRadius="4"
 Padding="8"  Margin="0,5,0,0">
-                        <TextBox
+                        <TextBox Text="{Binding DamageDescription}"
                             materialDesign:HintAssist.Hint="Enter damage description..."
                             Margin="0 16 0 0"
                             Height="50"
@@ -440,7 +440,7 @@ SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
                                      BorderThickness="1"
                                      Padding="5">
 
-                <DataGrid Height="140"
+                <DataGrid Height="140" ItemsSource="{Binding DamageRecords}"
                               AutoGenerateColumns="False">
 
                     <DataGrid.Columns>
@@ -449,6 +449,7 @@ SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
                         <DataGridTextColumn Header="SubType" Binding="{Binding SubType}"/>
                         <DataGridTextColumn Header="Image1" Binding="{Binding Image1}"/>
                         <DataGridTextColumn Header="Image2" Binding="{Binding Image2}"/>
+                        <DataGridTextColumn Header="Image3" Binding="{Binding Image3}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>

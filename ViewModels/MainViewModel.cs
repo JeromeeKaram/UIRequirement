@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Windows;
+using UIRequirement.Models;
 
 namespace UIRequirement.ViewModels;
 
@@ -44,7 +45,7 @@ public partial class MainViewModel : ObservableObject
 
     List<ConfigInfo> lstConfigs = new List<ConfigInfo>();
     List<AsciiInfo> lstAscii = new List<AsciiInfo>();
-    
+
     List<ManualCriteria> lstManualCriteria = new List<ManualCriteria>(0);
 
     public ObservableCollection<DamageInfo> Damages { get; } = new();
@@ -91,6 +92,9 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string? windowTitle;
 
+    [ObservableProperty]
+    private ObservableCollection<DamageRecord> damageRecords = new();
+
     [RelayCommand]
     private async Task Load()
     {
@@ -99,44 +103,92 @@ public partial class MainViewModel : ObservableObject
 
         //var retObject = await GetDataAsync();
 
-    //    ESN = retObject.ESN;
-    //    TSN = retObject.TSN;
-    //    CSN = retObject.CSN;
+        //    ESN = retObject.ESN;
+        //    TSN = retObject.TSN;
+        //    CSN = retObject.CSN;
 
-    //    TicketDetails = retObject.TicketDetails;
+        //    TicketDetails = retObject.TicketDetails;
 
-    //    var imagesKeyValueList = retObject.Images
-    //.Select(path => new KeyValuePair<string, string>(
-    //    Path.GetFileName(path),
-    //    path))
-    //.ToList();
+        //    var imagesKeyValueList = retObject.Images
+        //.Select(path => new KeyValuePair<string, string>(
+        //    Path.GetFileName(path),
+        //    path))
+        //.ToList();
 
-    //    overviewImages.Clear();
+        //    overviewImages.Clear();
 
-    //    foreach (var item in imagesKeyValueList)
-    //    {
-    //        overviewImages.Add(item);
-    //    }
+        //    foreach (var item in imagesKeyValueList)
+        //    {
+        //        overviewImages.Add(item);
+        //    }
 
-    //    zoomedViews.Clear();
+        //    zoomedViews.Clear();
 
-    //    foreach (var item in imagesKeyValueList)
-    //    {
-    //        zoomedViews.Add(item);
-    //    }
+        //    foreach (var item in imagesKeyValueList)
+        //    {
+        //        zoomedViews.Add(item);
+        //    }
 
-    //    partsInformation.Clear();
+        //    partsInformation.Clear();
 
-    //    foreach (var item in imagesKeyValueList)
-    //    {
-    //        partsInformation.Add(item);
-    //    }
+        //    foreach (var item in imagesKeyValueList)
+        //    {
+        //        partsInformation.Add(item);
+        //    }
     }
 
     [RelayCommand]
     private void Add()
     {
-        MessageBox.Show("Add Clicked");
+        try
+        {
+            if (string.IsNullOrEmpty(DamageDescription))
+            {
+                MessageBox.Show("Please provide Damage Information");
+                return;
+            }
+            Select_ManualCriteria();
+
+            DamageRecords.Add(new DamageRecord
+            {
+                DamageText = DamageDescription,
+                Type = SelectedRepairPart,
+                SubType = SelectedNonConformanceType,
+                Image1 = SelectedOverviewImage,
+                Image2 = SelectedZoomedView,
+                Image3 = SelectedPartInformation,
+            });
+
+            //
+            var dmg = new DamageInfo();
+            dmg.m_sDamageInfo = DamageDescription;
+            dmg.m_sType = SelectedRepairPart;
+            dmg.m_sSubType = SelectedNonConformanceType;
+            var findingFolder = Path.Combine(sDir, "bin", "images", "Finding");
+            dmg.m_sImage1 = findingFolder + "\\" + SelectedOverviewImage;
+            dmg.m_sImage2 = findingFolder + "\\" + SelectedZoomedView;
+            dmg.m_sImage3 = findingFolder + "\\" + SelectedPartInformation;
+            dmg.m_nNoOfPages = PageImagesCount(dmg);
+            dmg.m_sNonConformanceType = selectedNonConformanceType;
+            dmg.addmoreimages = lstMoreImages;
+            dmg.m_sManualCriteria = sManualCriteria;
+            foreach (ConfigInfo config in lstConfigs)
+            {
+                if (config.m_sType == dmg.m_sType && config.m_sSubType == dmg.m_sSubType)
+                {
+                    dmg.m_oConfig = config;
+                    break;
+                }
+            }
+
+            lstDamages.Add(dmg);
+            tbDamageInfo.Text = "";
+            lstMoreImages = new List<MoreImages>();
+        }
+        catch (Exception ee)
+        {
+            Utility.WriteErrorLog(ee);
+        }
     }
 
     [RelayCommand]
@@ -442,7 +494,7 @@ public partial class MainViewModel : ObservableObject
 
             //cbType.Items.AddRange(dtTypes.Keys.ToArray());
 
-            foreach(var item in dtTypes)
+            foreach (var item in dtTypes)
             {
                 RepairParts.Add(new KeyValuePair<string, string>(item.Key, item.Key));
             }
@@ -535,7 +587,7 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
-    string GetCellValue(ExcelWorksheet oXlWorkSheet, int nRow, int nCol)
+    private string GetCellValue(ExcelWorksheet oXlWorkSheet, int nRow, int nCol)
     {
         string sValue = "";
         try
@@ -554,5 +606,55 @@ public partial class MainViewModel : ObservableObject
             Utility.WriteErrorLog(ee);
         }
         return sValue;
+    }
+
+    private void Select_ManualCriteria()
+    {
+        try
+        {
+            sManualCriteria = "";
+            if (cbType.SelectedItem != null && cbSubType.SelectedItem != null && cbNonConformanceType.SelectedItem != null)
+            {
+                string type = cbType.SelectedItem.ToString();
+                string subtype = cbSubType.SelectedItem.ToString();
+                string mc = cbNonConformanceType.SelectedItem.ToString();
+                foreach (ManulaCriteria oo in lstManulaCriteria)
+                {
+                    if (oo.m_sType == type && oo.m_sSubType == subtype)
+                    {
+                        if (oo.dtVals.ContainsKey(mc))
+                        {
+                            if (oo.dtVals[mc].Count > 1)
+                            {
+                                UIManualCriteria oUI = new UIManualCriteria(oo.dtVals[mc]);
+                                oUI.ShowDialog();
+                                sManualCriteria = oUI.ManualCriteria_Selected;
+                            }
+                            else if (oo.dtVals[mc].Count == 1)
+                            {
+                                sManualCriteria = oo.dtVals[mc][0];
+                            }
+                        }
+                    }
+                }
+                if (sManualCriteria == "NA") sManualCriteria = "";
+            }
+        }
+        catch (Exception ee)
+        {
+            Utility.WriteErrorLog(ee);
+        }
+    }
+
+    public int PageImagesCount(DamageInfo dmg)
+    {
+        int nextPage = 1, imgCnt = 0;
+        if (dmg.m_sImage1.Length > 0 && System.IO.File.Exists(dmg.m_sImage1)) imgCnt = imgCnt + 1;
+        if (dmg.m_sImage2.Length > 0 && System.IO.File.Exists(dmg.m_sImage2)) imgCnt = imgCnt + 1;
+        if (dmg.m_sImage3.Length > 0 && System.IO.File.Exists(dmg.m_sImage3)) imgCnt = imgCnt + 1;
+        if (dmg.addmoreimages.Count > 0) imgCnt = imgCnt + 1;
+        //  if (dmg.m_sImage4.Length > 0 && System.IO.File.Exists(dmg.m_sImage4)) imgCnt = imgCnt + 1;
+        if (imgCnt > 2) nextPage = 2;
+        return nextPage;
     }
 }
