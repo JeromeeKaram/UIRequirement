@@ -8,10 +8,6 @@ namespace CTR_Form_Tool.Views
 {
     public partial class UIHelp : Window
     {
-        private readonly string sDir =
-        Path.GetDirectoryName(
-            System.Reflection.Assembly.GetEntryAssembly()!.Location)!;
-
         public UIHelp()
         {
             InitializeComponent();
@@ -20,7 +16,7 @@ namespace CTR_Form_Tool.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Title = Utility.m_sToolName + " V" + Utility.m_sVersion;
-            webBrowser1.Navigate(sDir + "\\bin\\SOP_CTR Tool.pdf");
+            webBrowser1.Navigate(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin", "SOP_CTR Tool.pdf"));
         }
 
         private void PptMenuItem_Click(object sender, RoutedEventArgs e)

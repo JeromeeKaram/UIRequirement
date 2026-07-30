@@ -13,9 +13,7 @@ namespace UIRequirement.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly string sDir =
-        Path.GetDirectoryName(
-            System.Reflection.Assembly.GetEntryAssembly()!.Location)!;
+    private readonly string sDir = AppDomain.CurrentDomain.BaseDirectory;
 
     [ObservableProperty]
     private string? findingTicketNo;
