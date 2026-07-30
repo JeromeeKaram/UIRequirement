@@ -43,6 +43,10 @@ public partial class MainViewModel : ObservableObject
     private string username = string.Empty;
     private string password = string.Empty;
 
+    List<MoreImages> lstMoreImages = new List<MoreImages>();
+    List<DamageInfo> lstDamages = new List<DamageInfo>();
+    string sManualCriteria = "";
+
     List<ConfigInfo> lstConfigs = new List<ConfigInfo>();
     List<AsciiInfo> lstAscii = new List<AsciiInfo>();
 
@@ -182,7 +186,7 @@ public partial class MainViewModel : ObservableObject
             }
 
             lstDamages.Add(dmg);
-            tbDamageInfo.Text = "";
+            DamageDescription = "";
             lstMoreImages = new List<MoreImages>();
         }
         catch (Exception ee)
