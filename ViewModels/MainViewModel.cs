@@ -373,7 +373,8 @@ public partial class MainViewModel : ObservableObject
                 string s4 = GetCellValue(oXlWorkSheet, r, 4);
                 if (s2.Length > 0 && s3.Length > 0 && s4.Length > 0)
                 {
-                    string templatePath = Utility.m_sBinPath + "Templates\\" + s4;
+                    //string templatePath = Path.Combine(sDir, Utility.m_sBinPath, "Templates", s4); Needs to check TODO
+                    string templatePath = Path.Combine(sDir, "bin\\Templates", s4);
                     if (System.IO.File.Exists(templatePath) == false)
                     {
                         err = err + s4 + "\n";
