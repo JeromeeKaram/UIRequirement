@@ -1,15 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-//using CTR_Form_Tool;
+using OfficeOpenXml;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using UIRequirement.Models;
 
 namespace UIRequirement.ViewModels;
 
@@ -39,6 +34,15 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string ticketDetails;
 
+    private string loginurl = string.Empty;
+    private string username = string.Empty;
+    private string password = string.Empty;
+
+    List<ConfigInfo> lstConfigs = new List<ConfigInfo>();
+    List<AsciiInfo> lstAscii = new List<AsciiInfo>();
+    Dictionary<string, List<string>> dtTypes = new Dictionary<string, List<string>>();
+    List<ManualCriteria> lstManualCriteria = new List<ManualCriteria>(0);
+
     public ObservableCollection<DamageInfo> Damages { get; } = new();
 
     [ObservableProperty]
@@ -48,7 +52,16 @@ public partial class MainViewModel : ObservableObject
     private ObservableCollection<KeyValuePair<string, string>> partsInformation = new();
 
     [ObservableProperty]
+    private ObservableCollection<KeyValuePair<string, string>> repairParts = new();
+
+    [ObservableProperty]
     private ObservableCollection<KeyValuePair<string, string>> zoomedViews = new();
+
+    [ObservableProperty]
+    private ObservableCollection<KeyValuePair<string, string>> nonConformanceTypes = new();
+
+    [ObservableProperty]
+    private ObservableCollection<KeyValuePair<string, string>> locations = new();
 
     [ObservableProperty]
     private string? selectedZoomedView;
@@ -59,11 +72,23 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string? selectedPartInformation;
 
+    [ObservableProperty]
+    private string? selectedLocation;
+
+    [ObservableProperty]
+    private string? selectedNonConformanceType;
+
+    [ObservableProperty]
+    private string? selectedRepairPart;
+
+    [ObservableProperty]
+    private string? windowTitle;
+
     [RelayCommand]
     private async Task Load()
     {
         //MessageBox.Show("Load clicked");
-        //await InputFolderSelected();
+        await InputFolderSelected();
 
         var retObject = await GetDataAsync();
 
@@ -283,189 +308,231 @@ public partial class MainViewModel : ObservableObject
         };
     }
 
-    //private async Task<int> getRedmineImages(string issueId, string encticket)
-    //{
+    public void Initialise()
+    {
+        try
+        {
+            WindowTitle = Utility.m_sToolName + " V" + Utility.m_sVersion;
 
-    //    IWebDriver driver = null;
-    //    int count = 0;
+            ReadTheConfigurationFile();
+            ReadAscii();
 
-    //    try
-    //    {
+            //URLS
+            string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            List<string> lstLines = Utility.ReadFile(sDir + "\\bin\\redminedata.txt");
+            for (int i = 0; i < lstLines.Count; i++)
+            {
+                string line = lstLines[i].Trim();
 
-    //        string baseUrl = "http://0000a1000452";
-    //        string loginPage = baseUrl + "/ics/my/page";
-    //        //  string issueId = tbInputFolderPath.Text.Trim();
-    //        string targetPage = $"http://0000a1000452/ics/issues/{issueId}";
-    //        string enctargetPage = $"http://0000a1000452/ics/issues/{encticket}";
-    //        //string targetPage = "http://0000a1000452/ics/issues/" + textBox4.Text.Trim();
-    //        string folderPath = FindingFolder;
-    //        //tbInputFolderPath.Text + "//Finding";
+                if (line == "loginurl:")
+                    loginurl = lstLines[i + 1].Trim();
 
-    //        Directory.CreateDirectory(folderPath);
+                if (line == "username:")
+                    username = lstLines[i + 1].Trim();
 
-    //        ChromeOptions options = new ChromeOptions();
-    //        options.AddArgument("--start-maximized");
-
-    //        driver = new ChromeDriver(options);
-
-    //        // ================= LOGIN =================
-    //        driver.Navigate().GoToUrl(loginPage);
-
-    //        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-    //        wait.Until(d => d.FindElements(By.Id("username")).Count > 0);
-
-    //        driver.FindElement(By.Id("username")).SendKeys(username.Trim());
-    //        driver.FindElement(By.Id("password")).SendKeys(password.Trim());
-    //        driver.FindElement(By.Id("kc-login")).Click();
+                if (line == "password:")
+                    password = lstLines[i + 1].Trim();
+            }
+        }
+        catch (Exception ee)
+        {
+            Utility.WriteErrorLog(ee);
+        }
+    }
 
 
-    //        // ================= OPEN ENC TARGET PAGE =================
-    //        File.WriteAllLines(sDir + "\\bin\\description.txt", new string[1] { "" });
-    //        File.WriteAllLines(sDir + "\\bin\\ENC.txt", new string[1] { "" });
-    //        if (encticket != "")
-    //        {
-    //            driver.Navigate().GoToUrl(enctargetPage);
+    private void ReadTheConfigurationFile()
+    {
+        try
+        {
+            lstConfigs.Clear();
+            dtTypes.Clear();
 
-    //            WebDriverWait wait1 = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-
-    //            wait1.Until(d =>
-    //            {
-    //                var body = d.FindElement(By.TagName("body"));
-    //                return !string.IsNullOrWhiteSpace(body.Text);
-    //            });
-
-    //            // Get all visible text from page
-    //            string pageText = driver.FindElement(By.TagName("body")).Text;
-
-    //            //  driver.Quit();
-
-    //            // Regex patterns
-    //            string esn = Regex.Match(pageText, @"ESN:\s*(\S+)").Groups[1].Value;
-    //            string tsn = Regex.Match(pageText, @"TSN:\s*(\S+)").Groups[1].Value;
-    //            string csn = Regex.Match(pageText, @"CSN:\s*(\S+)").Groups[1].Value;
-
-    //            result.Add(esn);
-    //            result.Add(tsn);
-    //            result.Add(csn);
-    //            File.WriteAllLines(sDir + "\\bin\\ENC.txt", result.ToArray());
-    //        }
-
-
-    //        // Wait for login cookies
-    //        //  wait.Until(d => d.Manage().Cookies.AllCookies.Count > 0);
-
-
-    //        // ================= OPEN TARGET PAGE =================
-    //        driver.Navigate().GoToUrl(targetPage);
-
-    //        wait.Until(d =>
-    //            d.FindElements(By.CssSelector("span.existing-attachment")).Count > 0
-    //        );
-
-    //        // get page source
-    //        string pageSource = driver.PageSource;
-    //        WebDriverWait wait3 = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-    //        wait3.Until(d => d.FindElement(By.TagName("body")));
-
-    //        string FindingpageInnerText = (string)((IJavaScriptExecutor)driver)
-    //            .ExecuteScript("return document.body.innerText;");
-    //        Utility.WriteErrorLog("", "", FindingpageInnerText);
-
-    //        // find the description wiki div
-    //        var wikiDiv = driver.FindElement(By.CssSelector("div.description div.wiki"));
-
-    //        // get visible text exactly as browser shows it
-    //        string extracteddata = FindingpageInnerText;// wikiDiv.Text;
-
-    //        // split by lines
-    //        var lines = extracteddata.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
-
-    //        // skip the line that contains "ODR No."
-    //        descriptionText = string.Join(
-    //            Environment.NewLine,
-    //            lines.SkipWhile(l => !l.StartsWith("ODR"))
-    //                 .Skip(1)
-    //        ).Trim();
-
-    //        // save it
-    //        File.WriteAllLines(sDir + "\\bin\\description.txt", lines.ToArray());
-
-    //        // ================= COPY COOKIES =================
-    //        CookieContainer cookieContainer = new CookieContainer();
-
-    //        foreach (var c in driver.Manage().Cookies.AllCookies)
-    //        {
-    //            cookieContainer.Add(
-    //                new System.Net.Cookie(c.Name, c.Value, c.Path, c.Domain)
-    //            );
-    //        }
-
-    //        HttpClientHandler handler = new HttpClientHandler
-    //        {
-    //            UseCookies = true,
-    //            CookieContainer = cookieContainer
-    //        };
-
-    //        // ================= DOWNLOAD ATTACHMENTS =================
-    //        using (HttpClient client = new HttpClient(handler))
-    //        {
-    //            var attachments = driver.FindElements(
-    //                By.CssSelector("span.existing-attachment")
-    //            );
+            //Part Repair Combo
+            RepairParts.Clear();   //cbType.Items.Clear();
 
 
 
-    //            foreach (var attachment in attachments)
-    //            {
-    //                // Get filename and attachment ID from the page
-    //                string fileName = attachment
-    //                    .FindElement(By.CssSelector("input.filename"))
-    //                    .GetAttribute("value");
+            lstManualCriteria.Clear();
 
-    //                string attachmentId = attachment
-    //                    .FindElement(By.CssSelector("input.deleted_attachment"))
-    //                    .GetAttribute("value");
+            string err = "";
 
-    //                // Build the **full correct URL** for the image/pdf
-    //                string downloadUrl = $"{baseUrl}/ics/attachments/download/{attachmentId}/{fileName}";
-    //                Utility.WriteErrorLog("", "", downloadUrl);
+            //string xlFile = Utility.CopyFileToTempPath(Utility.m_sBinPath + "Config.xlsx");
 
-    //                HttpResponseMessage response = await client.GetAsync(downloadUrl);
+            string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string xlFile = Utility.CopyFileToTempPath(sDir + "\\bin\\Config.xlsx");
 
-    //                if (!response.IsSuccessStatusCode)
-    //                    continue;
+            ExcelPackage oExcel = new ExcelPackage(new FileInfo(xlFile));
+            ExcelWorksheet oXlWorkSheet = oExcel.Workbook.Worksheets[1];
 
-    //                string contentType = response.Content.Headers.ContentType?.MediaType ?? "";
+            int nRows = oXlWorkSheet.Dimension.Rows + 10;
+            for (int r = 3; r <= nRows; r++)
+            {
+                string s2 = GetCellValue(oXlWorkSheet, r, 2);
+                string s3 = GetCellValue(oXlWorkSheet, r, 3);
+                string s4 = GetCellValue(oXlWorkSheet, r, 4);
+                if (s2.Length > 0 && s3.Length > 0 && s4.Length > 0)
+                {
+                    string templatePath = Utility.m_sBinPath + "Templates\\" + s4;
+                    if (System.IO.File.Exists(templatePath) == false)
+                    {
+                        err = err + s4 + "\n";
+                    }
+                    //Add to list
+                    ConfigInfo config = new ConfigInfo();
+                    config.m_sType = s2;
+                    config.m_sSubType = s3;
+                    config.m_sFile = s4;
 
-    //                // Only download images or PDFs
-    //                //if (!contentType.StartsWith("image") && !contentType.Contains("pdf"))
+                    CoordinatesInfo c1 = new CoordinatesInfo();
+                    c1.m_fImgTop = float.Parse(GetCellValue(oXlWorkSheet, r, 5));
+                    c1.m_fImageHeight = float.Parse(GetCellValue(oXlWorkSheet, r, 6));
+                    config.lstCoordinates.Add(c1);
 
-    //                // Only download images (NO PDFs)
-    //                if (!contentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
-    //                    continue;
+                    lstConfigs.Add(config);
 
-    //                byte[] data = await response.Content.ReadAsByteArrayAsync();
+                    if (dtTypes.ContainsKey(s2))
+                    {
+                        dtTypes[s2].Add(s3);
+                    }
+                    else
+                    {
+                        dtTypes.Add(s2, new List<string>() { s3 });
+                    }
+                }
+            }
+            //Read Non-conformance type
+            List<string> lstNonconformanceType = new List<string>();
+            oXlWorkSheet = oExcel.Workbook.Worksheets[2];
+            nRows = oXlWorkSheet.Dimension.Rows;
+            for (int r = 1; r <= nRows; r++)
+            {
+                string s2 = GetCellValue(oXlWorkSheet, r, 1);
+                if (s2.Length == 0) break;
+                lstNonconformanceType.Add(s2);
+            }
+            //cbNonConformanceType.Items.AddRange(lstNonconformanceType.ToArray());
+            //cbNonConformanceType.SelectedIndex = 0;
 
-    //                string savePath = Path.Combine(folderPath, fileName);
-    //                File.WriteAllBytes(savePath, data);
+            nonConformanceTypes.Clear();
 
-    //                count++;
-    //            }
+            foreach (string s in lstNonconformanceType)
+            {
+                nonConformanceTypes.Add(new KeyValuePair<string, string>(s, s));
+            }
 
-    //            //MessageBox.Show($"Downloaded {count} files successfully.");
-    //        }
+            //cbType.Items.AddRange(dtTypes.Keys.ToArray());
 
-    //    }
+            foreach(var item in dtTypes)
+            {
+                RepairParts.Add(new KeyValuePair<string, string>(item.Key, item.Key));
+            }
 
-    //    catch (Exception ex)
-    //    {
-    //        MessageBox.Show("Error: " + ex.Message);
-    //    }
-    //    finally
-    //    {
-    //        driver.Quit();
-    //    }
+            //---- Read the ManulaCriteria ----
+            oXlWorkSheet = oExcel.Workbook.Worksheets[3];
+            nRows = oXlWorkSheet.Dimension.Rows;
+            int Cols = oXlWorkSheet.Dimension.Columns;
+            for (int r = 2; r <= nRows; r++)
+            {
+                string type1 = GetCellValue(oXlWorkSheet, r, 2);
+                string type2 = GetCellValue(oXlWorkSheet, r, 3);
+                int startrow = r, endrow = r;
+                var cell = oXlWorkSheet.Cells[r, 2];
+                if (cell.Merge)
+                {
+                    string mergedAddress = oXlWorkSheet.MergedCells[r, 2];
+                    var mergedRange = oXlWorkSheet.Cells[mergedAddress];
+                    int mergedRowCount = mergedRange.End.Row - mergedRange.Start.Row + 1;
+                    endrow = startrow + mergedRowCount - 1;
+                }
+                Dictionary<string, List<string>> dt = new Dictionary<string, List<string>>();
+                for (int c = 4; c <= Cols; c++)
+                {
+                    string nc = GetCellValue(oXlWorkSheet, 1, c);
+                    if (nc.Length == 0) break;
+                    List<string> lst = new List<string>();
+                    for (int r1 = startrow; r1 <= endrow; r1++)
+                    {
+                        string v = GetCellValue(oXlWorkSheet, r1, c).Replace("\n", " ").Trim();
+                        if (v.Length > 0 && lst.Contains(v) == false)
+                        {
+                            lst.Add(v);
+                        }
+                    }
+                    dt.Add(nc, lst);
+                }
+                //create object
+                var mc = new ManualCriteria();
+                mc.m_sType = type1;
+                mc.m_sSubType = type2;
+                mc.dtVals = dt;
+                lstManualCriteria.Add(mc);
 
-    //    return count;
-    //}
+                r = endrow;
+            }
+            //---------------------------------
+            oExcel.Dispose();
+            Utility.DeleteFile(xlFile);
+
+
+            if (err.Length > 0)
+            {
+                Utility.WriteErrorLog(err);
+                err = "Some files are missing. Please update the configuration file properly\n\n" + err.Trim();
+                Utility.WarnUser(err);
+                Application.Current.Shutdown();
+            }
+        }
+        catch (Exception ee)
+        {
+            Utility.WriteErrorLog("", ee.Message, ee.StackTrace);
+            MessageBox.Show("Failed to read the configuration file. Please check if the Excel file is under IHI protection.\n\nKindly contact the CYIENT team for assistance.",
+            "Configuration Error",
+            MessageBoxButton.OK,
+            MessageBoxImage.Error);
+            Application.Current.Shutdown();
+        }
+    }
+
+    private void ReadAscii()
+    {
+        try
+        {
+            //Read Ascii
+            List<string> lst = Utility.ReadFile(Utility.m_sBinPath + "ascii.txt");
+            foreach (string s in lst)
+            {
+                List<string> lstSplits = Utility.SplitString(s, "=");
+                AsciiInfo oo = new AsciiInfo();
+                oo.m_nAsciiNum = int.Parse(lstSplits[0]);
+                oo.m_sVal = lstSplits[1];
+                lstAscii.Add(oo);
+            }
+        }
+        catch (Exception ee)
+        {
+            //Utility.WriteErrorLog(ee);
+        }
+    }
+
+    string GetCellValue(ExcelWorksheet oXlWorkSheet, int nRow, int nCol)
+    {
+        string sValue = "";
+        try
+        {
+            if (nRow > 0 && nCol > 0)
+            {
+                object oCell = oXlWorkSheet.Cells[nRow, nCol].Value;
+                if (oCell != null)
+                {
+                    sValue = oCell.ToString().Trim();
+                }
+            }
+        }
+        catch (Exception ee)
+        {
+            Utility.WriteErrorLog(ee);
+        }
+        return sValue;
+    }
 }

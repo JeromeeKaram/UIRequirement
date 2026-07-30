@@ -7,12 +7,13 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="CTR Form Automation Tool V3.1"
+        Loaded="Window_Loaded"
         WindowState="Maximized" Background="#E3F2FD">
 
     <Window.Resources>
 
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        
+
         <Style x:Key="BlueRaisedButton"
                TargetType="Button"
                BasedOn="{StaticResource MaterialDesignRaisedButton}">
@@ -89,7 +90,7 @@
 
                         <!-- Title -->
                         <TextBlock Grid.Column="0"
-                   Text="CTR Form Automation Tool V3.1"
+                   Text="{Binding WindowTitle}"
                    Foreground="Black"
                    FontSize="20"
                    FontWeight="Bold"
@@ -117,31 +118,31 @@
 
         <StackPanel Grid.Row="2">
 
-                <!-- Finding Ticket -->
-                <materialDesign:Card Margin="0 0 0 10"
+            <!-- Finding Ticket -->
+            <materialDesign:Card Margin="0 0 0 10"
                                      Padding="5"
                                      BorderThickness="1">
 
-                    <StackPanel>
+                <StackPanel>
 
-                        <TextBlock Text="Finding Ticket Information"
+                    <TextBlock Text="Finding Ticket Information"
                                    FontWeight="SemiBold"
                                    FontSize="14"
                                    Foreground="#1565C0"/>
 
-                        <Grid Margin="0 16 0 0">
+                    <Grid Margin="0 16 0 0">
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="180"/>
-                                <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
 
                         <TextBlock VerticalAlignment="Center">
     <Run Text="Finding Ticket No"/>
@@ -156,16 +157,16 @@
         Style="{StaticResource MaterialDesignOutlinedButton}"
         Padding="10,5">
 
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="FolderOpen"
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FolderOpen"
                                  Width="16"
                                  Height="16"
                                  Margin="0,0,5,0"/>
-                                    <TextBlock Text="Load"
+                                <TextBlock Text="Load"
                    VerticalAlignment="Center"/>
-                                </StackPanel>
+                            </StackPanel>
 
-                            </Button>
+                        </Button>
 
                         <TextBlock Grid.Column="3"
            Margin="20 0 0 0"
@@ -194,8 +195,8 @@
 
                         <TextBox Grid.Column="8" Text="{Binding CSN}"/>
 
-                        </Grid>
-                        <Border BorderThickness="1" BorderBrush="LightBlue"
+                    </Grid>
+                    <Border BorderThickness="1" BorderBrush="LightBlue"
 CornerRadius="4"
 Padding="8" Margin="0,5,0,0">
                         <TextBox
@@ -205,50 +206,55 @@ Padding="8" Margin="0,5,0,0">
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             VerticalScrollBarVisibility="Auto" Text="{Binding TicketDetails}"/>
-                            </Border>
-                    </StackPanel>
+                    </Border>
+                </StackPanel>
 
-                </materialDesign:Card>
+            </materialDesign:Card>
 
-                <!-- Damage Information -->
-                <materialDesign:Card Padding="5"
+            <!-- Damage Information -->
+            <materialDesign:Card Padding="5"
                                      BorderThickness="1">
 
-                    <StackPanel>
-                        
+                <StackPanel>
 
-                        <TextBlock Text="Enter Damage Information"
+
+                    <TextBlock Text="Enter Damage Information"
                                    FontWeight="SemiBold"
                                    FontSize="14"
                                    Foreground="#1565C0"/>
 
-                        <Border BorderThickness="1" BorderBrush="LightBlue" CornerRadius="4"
+                    <Border BorderThickness="1" BorderBrush="LightBlue" CornerRadius="4"
 Padding="8"  Margin="0,5,0,0">
-                            <TextBox
+                        <TextBox
                             materialDesign:HintAssist.Hint="Enter damage description..."
                             Margin="0 16 0 0"
                             Height="50"
                             AcceptsReturn="True"/>
-                        </Border>
+                    </Border>
 
-                        <Grid Margin="0,20,0,0">
+                    <Grid Margin="0,20,0,0">
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="15" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="15" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                            <!-- Row 1 -->
-                        <ComboBox Grid.Row="0"
-          Grid.Column="0">
+                        <!-- Row 1 -->
+                        <ComboBox Grid.Row="0" x:Name="cmbRepairParts"
+          Grid.Column="0"
+                                           ItemsSource="{Binding RepairParts}"
+                                              DisplayMemberPath="Key"
+SelectedValuePath="Value"
+SelectedValue="{Binding SelectedRepairPart, Mode=TwoWay}"     
+                                  >
 
                             <materialDesign:HintAssist.Hint>
                                 <TextBlock>
@@ -259,8 +265,11 @@ Padding="8"  Margin="0,5,0,0">
 
                         </ComboBox>
 
-                        <ComboBox Grid.Row="0"
-          Grid.Column="2">
+                        <ComboBox Grid.Row="0" x:Name="cmbLocations"
+          Grid.Column="2"                                            ItemsSource="{Binding Locations}"
+                                              DisplayMemberPath="Key"
+SelectedValuePath="Value"
+SelectedValue="{Binding SelectedLocation, Mode=TwoWay}"  >
 
                             <materialDesign:HintAssist.Hint>
                                 <TextBlock>
@@ -271,21 +280,24 @@ Padding="8"  Margin="0,5,0,0">
 
                         </ComboBox>
 
-                        <ComboBox Grid.Row="0"
-              Grid.Column="4"
+                        <ComboBox Grid.Row="0" x:Name="cmbNonConformanceTypes"
+              Grid.Column="4"                                            ItemsSource="{Binding NonConformanceTypes}"
+                                              DisplayMemberPath="Key"
+SelectedValuePath="Value"
+SelectedValue="{Binding SelectedNonConformanceType, Mode=TwoWay}"  
               materialDesign:HintAssist.Hint="Non-conformance Type" />
 
-                            <!-- Row 2 -->
-                            <Grid Grid.Row="1"
+                        <!-- Row 2 -->
+                        <Grid Grid.Row="1"
       Grid.Column="0"
       Margin="0,12,0,0">
 
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="Auto"/>
-    </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-    <ComboBox Grid.Column="0"
+                            <ComboBox Grid.Column="0" x:Name="cmbOverviewImages"
               Margin="0,0,5,0"
               ItemsSource="{Binding OverviewImages}"
                                               DisplayMemberPath="Key"
@@ -293,158 +305,158 @@ SelectedValuePath="Value"
 SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Overview Image"/>
 
-    <Button Grid.Column="1"
+                            <Button Grid.Column="1"
             Click="OverviewInfo_Click"
             Background="Transparent"
             BorderThickness="0"
             Padding="0">
 
-        <materialDesign:PackIcon Kind="InformationOutline"
+                                <materialDesign:PackIcon Kind="InformationOutline"
                                  Width="18"
                                  Height="18"
                                  Foreground="DodgerBlue"/>
-    </Button>
+                            </Button>
 
-</Grid>
+                        </Grid>
 
-                            <Grid Grid.Row="1"
+                        <Grid Grid.Row="1"
       Grid.Column="2"
       Margin="0,12,0,0">
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                                <ComboBox Grid.Column="0"
+                            <ComboBox Grid.Column="0"
               Margin="0,0,5,0" ItemsSource="{Binding ZoomedViews}"
                                           DisplayMemberPath="Key"
           SelectedValuePath="Value"
           SelectedValue="{Binding SelectedZoomedView, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Zoomed View" />
 
-                                <Button Grid.Column="1"
+                            <Button Grid.Column="1"
             Click="ZoomedViewInfo_Click"
             Background="Transparent"
             BorderThickness="0"
             Padding="0"
             ToolTip="Zoomed View Information">
 
-                                    <materialDesign:PackIcon Kind="InformationOutline"
+                                <materialDesign:PackIcon Kind="InformationOutline"
                                  Width="18"
                                  Height="18"
                                  Foreground="DodgerBlue"/>
-                                </Button>
+                            </Button>
 
-                            </Grid>
+                        </Grid>
 
 
-                            <Grid Grid.Row="1"
+                        <Grid Grid.Row="1"
       Grid.Column="4"
       Margin="0,12,0,0">
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                                <ComboBox Grid.Column="0"
+                            <ComboBox Grid.Column="0"
               Margin="0,0,5,0" ItemsSource="{Binding PartsInformation}"
                                           DisplayMemberPath="Key"
           SelectedValuePath="Value"
           SelectedValue="{Binding SelectedPartInformation, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Part Information" />
 
-                                <Button Grid.Column="1"
+                            <Button Grid.Column="1"
             Click="PartInformationInfo_Click"
             Background="Transparent"
             BorderThickness="0"
             Padding="0"
             ToolTip="Part Information">
 
-                                    <materialDesign:PackIcon Kind="InformationOutline"
+                                <materialDesign:PackIcon Kind="InformationOutline"
                                  Width="18"
                                  Height="18"
                                  Foreground="DodgerBlue"/>
-                                </Button>
-
-                            </Grid>
+                            </Button>
 
                         </Grid>
 
-                        <StackPanel Orientation="Horizontal"
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"
                                     Margin="0 5 0 0">
 
-                            <Button Margin="4" x:Name="btnAddMoreImages"
+                        <Button Margin="4" x:Name="btnAddMoreImages"
                                     
         Style="{StaticResource BlueRaisedButton}" Click="btnAddMoreImages_Click">
 
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="ImageMultiple"
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ImageMultiple"
                                  Width="16"
                                  Height="16"
                                  Margin="0,0,5,0"/>
-                                    <TextBlock Text="Add More Images"/>
-                                </StackPanel>
+                                <TextBlock Text="Add More Images"/>
+                            </StackPanel>
 
-                            </Button>
+                        </Button>
 
-                            <Button Margin="4"
+                        <Button Margin="4"
                                     Command="{Binding AddCommand}"
         Style="{StaticResource BlueRaisedButton}">
 
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="PlusCircle"
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="PlusCircle"
                                  Width="16"
                                  Height="16"
                                  Margin="0,0,5,0"/>
-                                    <TextBlock Text="Add"/>
-                                </StackPanel>
+                                <TextBlock Text="Add"/>
+                            </StackPanel>
 
-                            </Button>
+                        </Button>
 
-                            <Button Margin="4"
+                        <Button Margin="4"
                                     Command="{Binding ClearCommand}"
         Style="{StaticResource BlueRaisedButton}">
 
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Broom"
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Broom"
                                  Width="16"
                                  Height="16"
                                  Margin="0,0,5,0"/>
-                                    <TextBlock Text="Clear"/>
-                                </StackPanel>
+                                <TextBlock Text="Clear"/>
+                            </StackPanel>
 
-                            </Button>
-
-                        </StackPanel>
+                        </Button>
 
                     </StackPanel>
 
-                </materialDesign:Card>
+                </StackPanel>
 
-                <!-- Data Grid -->
-                <materialDesign:Card Margin="0 10 0 0"
+            </materialDesign:Card>
+
+            <!-- Data Grid -->
+            <materialDesign:Card Margin="0 10 0 0"
                                      BorderThickness="1"
                                      Padding="5">
 
-                    <DataGrid Height="140"
+                <DataGrid Height="140"
                               AutoGenerateColumns="False">
 
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="DamageText" Binding="{Binding DamageText}"/>
-                            <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
-                            <DataGridTextColumn Header="SubType" Binding="{Binding SubType}"/>
-                            <DataGridTextColumn Header="Image1" Binding="{Binding Image1}"/>
-                            <DataGridTextColumn Header="Image2" Binding="{Binding Image2}"/>
-                        </DataGrid.Columns>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="DamageText" Binding="{Binding DamageText}"/>
+                        <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Header="SubType" Binding="{Binding SubType}"/>
+                        <DataGridTextColumn Header="Image1" Binding="{Binding Image1}"/>
+                        <DataGridTextColumn Header="Image2" Binding="{Binding Image2}"/>
+                    </DataGrid.Columns>
 
-                    </DataGrid>
+                </DataGrid>
 
-                </materialDesign:Card>
+            </materialDesign:Card>
 
-            </StackPanel>
+        </StackPanel>
 
         <!-- Footer -->
         <StackPanel Grid.Row="3"

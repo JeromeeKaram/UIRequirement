@@ -91,3 +91,16 @@ public class Ret
         = new();
 
 }
+
+public class ManualCriteria
+{
+    public string m_sType = "";
+    public string m_sSubType = "";
+    public Dictionary<string, List<string>> dtVals = new Dictionary<string, List<string>>();
+}
+
+public class AsciiInfo
+{
+    public int m_nAsciiNum = 0;
+    public string m_sVal = "";
+}
