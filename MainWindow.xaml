@@ -255,7 +255,7 @@ Padding="8"  Margin="0,3,0,0">
 SelectedValuePath="Value"
 SelectedValue="{Binding SelectedRepairPart, Mode=TwoWay}" SelectionChanged="cmbRepairParts_SelectionChanged">
 
-                        <materialDesign:HintAssist.Hint>
+                            <materialDesign:HintAssist.Hint>
                                 <TextBlock>
             <Run Text="Part Repair"/>
             <Run Text="*" Foreground="Red" FontWeight="Bold"/>
@@ -300,8 +300,7 @@ SelectedValue="{Binding SelectedNonConformanceType, Mode=TwoWay}"
               Margin="0,0,5,0"
               ItemsSource="{Binding OverviewImages}"
                                               DisplayMemberPath="Key"
-SelectedValuePath="Value"
-SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
+SelectedItem="{Binding SelectedOverviewImage, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Overview Image"/>
 
                             <Button Grid.Column="1"
@@ -330,8 +329,7 @@ SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
                             <ComboBox Grid.Column="0"
               Margin="0,0,5,0" ItemsSource="{Binding ZoomedViews}"
                                           DisplayMemberPath="Key"
-          SelectedValuePath="Value"
-          SelectedValue="{Binding SelectedZoomedView, Mode=TwoWay}"
+          SelectedItem="{Binding SelectedZoomedView, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Zoomed View" />
 
                             <Button Grid.Column="1"
@@ -362,8 +360,7 @@ SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
                             <ComboBox Grid.Column="0"
               Margin="0,0,5,0" ItemsSource="{Binding PartsInformation}"
                                           DisplayMemberPath="Key"
-          SelectedValuePath="Value"
-          SelectedValue="{Binding SelectedPartInformation, Mode=TwoWay}"
+          SelectedItem="{Binding SelectedPartInformation, Mode=TwoWay}"
               materialDesign:HintAssist.Hint="Part Information" />
 
                             <Button Grid.Column="1"
@@ -441,15 +438,17 @@ SelectedValue="{Binding SelectedOverviewImage, Mode=TwoWay}"
                                      Padding="5">
 
                 <DataGrid Height="140" ItemsSource="{Binding DamageRecords}"
-                              AutoGenerateColumns="False">
+                              AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                          RowBackground="White"
+          AlternatingRowBackground="White">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="DamageText" Binding="{Binding DamageText}"/>
-                        <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
-                        <DataGridTextColumn Header="SubType" Binding="{Binding SubType}"/>
-                        <DataGridTextColumn Header="Image1" Binding="{Binding Image1}"/>
-                        <DataGridTextColumn Header="Image2" Binding="{Binding Image2}"/>
-                        <DataGridTextColumn Header="Image3" Binding="{Binding Image3}"/>
+                        <DataGridTextColumn Header="DamageText" Binding="{Binding DamageText}" Width="200"/>
+                        <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="120"/>
+                        <DataGridTextColumn Header="SubType" Binding="{Binding SubType}" Width="120"/>
+                        <DataGridTextColumn Header="Image1" Binding="{Binding Image1}" Width="150"/>
+                        <DataGridTextColumn Header="Image2" Binding="{Binding Image2}" Width="150"/>
+                        <DataGridTextColumn Header="Image3" Binding="{Binding Image3}" Width="150"/>
                     </DataGrid.Columns>
 
                 </DataGrid>

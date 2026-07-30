@@ -43,17 +43,17 @@ public partial class MainWindow : Window
 
     private void ZoomedViewInfo_Click(object sender, RoutedEventArgs e)
     {
-        ShowImage(_vm.SelectedZoomedView);
+        ShowImage(_vm.SelectedZoomedView.Value.ToString());
     }
 
     private void OverviewInfo_Click(object sender, RoutedEventArgs e)
     {
-        ShowImage(_vm.SelectedOverviewImage);
+        ShowImage(_vm.SelectedOverviewImage.Value.ToString());
     }
 
     private void PartInformationInfo_Click(object sender, RoutedEventArgs e)
     {
-        ShowImage(_vm.SelectedPartInformation);
+        ShowImage(_vm.SelectedPartInformation.Value.ToString());
     }
 
     private void ShowImage(string? imagePath)

@@ -78,13 +78,13 @@ public partial class MainViewModel : ObservableObject
     private ObservableCollection<KeyValuePair<string, string>> locations = new();
 
     [ObservableProperty]
-    private string? selectedZoomedView;
+    private KeyValuePair<string, string>? selectedZoomedView;
 
     [ObservableProperty]
-    private string? selectedOverviewImage;
+    private KeyValuePair<string, string>? selectedOverviewImage;
 
     [ObservableProperty]
-    private string? selectedPartInformation;
+    private KeyValuePair<string, string>? selectedPartInformation;
 
     [ObservableProperty]
     private string? selectedLocation;
@@ -104,43 +104,13 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task Load()
     {
-        //MessageBox.Show("Load clicked");
+        if (string.IsNullOrEmpty(InputFolderPath))
+        {
+            MessageBox.Show("Please provide finding ticket number");
+            return;
+        }
+
         await InputFolderSelected();
-
-        //var retObject = await GetDataAsync();
-
-        //    ESN = retObject.ESN;
-        //    TSN = retObject.TSN;
-        //    CSN = retObject.CSN;
-
-        //    TicketDetails = retObject.TicketDetails;
-
-        //    var imagesKeyValueList = retObject.Images
-        //.Select(path => new KeyValuePair<string, string>(
-        //    Path.GetFileName(path),
-        //    path))
-        //.ToList();
-
-        //    overviewImages.Clear();
-
-        //    foreach (var item in imagesKeyValueList)
-        //    {
-        //        overviewImages.Add(item);
-        //    }
-
-        //    zoomedViews.Clear();
-
-        //    foreach (var item in imagesKeyValueList)
-        //    {
-        //        zoomedViews.Add(item);
-        //    }
-
-        //    partsInformation.Clear();
-
-        //    foreach (var item in imagesKeyValueList)
-        //    {
-        //        partsInformation.Add(item);
-        //    }
     }
 
     [RelayCommand]
@@ -160,9 +130,9 @@ public partial class MainViewModel : ObservableObject
                 DamageText = DamageDescription,
                 Type = SelectedRepairPart,
                 SubType = SelectedNonConformanceType,
-                Image1 = SelectedOverviewImage,
-                Image2 = SelectedZoomedView,
-                Image3 = SelectedPartInformation,
+                Image1 = SelectedOverviewImage?.Key,
+                Image2 = SelectedZoomedView?.Key,
+                Image3 = SelectedPartInformation?.Key,
             });
 
             //
@@ -200,7 +170,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Clear()
     {
-        MessageBox.Show("Clear clicked");
+        DamageRecords.Clear();
     }
 
     [RelayCommand]
@@ -349,9 +319,9 @@ public partial class MainViewModel : ObservableObject
             //cbImage2.SelectedIndex = 0;
             //cbImage3.SelectedIndex = 0;
 
-            SelectedOverviewImage = OverviewImages.FirstOrDefault().Value;
-            SelectedZoomedView = ZoomedViews.FirstOrDefault().Value;
-            SelectedPartInformation = PartsInformation.FirstOrDefault().Value;
+            SelectedOverviewImage = OverviewImages.FirstOrDefault();
+            SelectedZoomedView = ZoomedViews.FirstOrDefault();
+            SelectedPartInformation = PartsInformation.FirstOrDefault();
 
         }
         catch (Exception ee)
