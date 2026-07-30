@@ -1,0 +1,125 @@
+﻿<Window x:Class="CTR_Form_Tool.Views.UIAbout"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="350"
+        Width="620"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        Loaded="Window_Loaded">
+
+    <Grid Background="#D2FAFF" Margin="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Version / Date -->
+        <StackPanel Orientation="Horizontal"
+                    Margin="5">
+            <TextBlock x:Name="lbVersion"
+                       Text="Version"
+                       FontStyle="Italic"
+                       FontFamily="Verdana"
+                       Foreground="#194682"/>
+
+            <TextBlock x:Name="lbDate"
+                       Text="Date"
+                       Margin="50,0,0,0"
+                       FontStyle="Italic"
+                       FontFamily="Verdana"
+                       Foreground="#194682"/>
+        </StackPanel>
+
+        <!-- Purpose Panel -->
+        <Border Grid.Row="1"
+                Margin="0,5,0,5"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                Background="#D2FAFF">
+
+            <TextBlock x:Name="lblPurpose"
+                       Text="Purpose"
+                       Margin="10"
+                       TextWrapping="Wrap"
+                       Foreground="#194682"
+                       FontFamily="Verdana"/>
+        </Border>
+
+        <!-- Contact Details -->
+        <GroupBox Grid.Row="2"
+                  Header="Contact details"
+                  FontWeight="Bold"
+                  Foreground="#194682"
+                  Background="#D2FAFF"
+                  Margin="0,5">
+
+            <Grid Margin="10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="CYIENT Onsite"
+                           FontFamily="Courier New"
+                           FontWeight="Bold"/>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Text="Venkatesh Katta"
+                           FontFamily="Courier New"/>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="2"
+                           Text="katta0901@ihi-g.com"
+                           TextDecorations="Underline"
+                           Foreground="#194682"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="CYIENT Offshore"
+                           FontFamily="Courier New"
+                           FontWeight="Bold"
+                           Margin="0,10,0,0"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Text="Veerendra Kotari"
+                           FontFamily="Courier New"
+                           Margin="0,10,0,0"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="2"
+                           Text="Veerendra.Kotari@cyient.com"
+                           TextDecorations="Underline"
+                           Foreground="#194682"
+                           Margin="0,10,0,0"/>
+
+            </Grid>
+        </GroupBox>
+
+        <!-- OK Button -->
+        <Button Grid.Row="3"
+                Width="90"
+                Height="30"
+                Content="OK"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,10,0,0"
+                Click="BtnOk_Click"/>
+
+    </Grid>
+
+</Window>

@@ -60,13 +60,13 @@
                   VerticalAlignment="Center">
 
                         <MenuItem Header="_File" Foreground="Black">
-                            <MenuItem Header="_Open"/>
-                            <Separator/>
                             <MenuItem Header="_Exit"
                               Click="MenuExit_Click"/>
                         </MenuItem>
 
                         <MenuItem Header="_Help" Foreground="Black">
+                            <MenuItem Header="Help"
+  Click="MenuHelp_Click"/>
                             <MenuItem Header="_About"
                               Click="MenuAbout_Click"/>
                         </MenuItem>

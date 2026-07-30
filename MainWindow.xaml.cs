@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using CTR_Form_Tool.Views;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,13 +33,18 @@ public partial class MainWindow : Window
         Close();
     }
 
+    private void MenuHelp_Click(object sender, RoutedEventArgs e)
+    {
+        var window = new UIHelp();
+        window.Owner = this;
+        window.ShowDialog();
+    }
+
     private void MenuAbout_Click(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show(
-            "CTR Form Automation Tool V3.1\n\nDeveloped using WPF and Material Design.",
-            "About",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        var window = new UIAbout();
+        window.Owner = this;
+        window.ShowDialog();
     }
 
     private void ZoomedViewInfo_Click(object sender, RoutedEventArgs e)

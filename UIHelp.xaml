@@ -1,0 +1,28 @@
+﻿<Window x:Class="CTR_Form_Tool.Views.UIHelp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Engine Manual Revision Tool_V1"
+        Height="530"
+        Width="800"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded">
+
+    <DockPanel>
+
+        <!-- Menu -->
+        <Menu DockPanel.Dock="Top"
+              Background="White">
+
+            <MenuItem Header="_View">
+                <MenuItem Header="Show presentation"
+                          Click="PptMenuItem_Click" />
+            </MenuItem>
+
+        </Menu>
+
+        <!-- Browser -->
+        <WebBrowser x:Name="webBrowser1" />
+
+    </DockPanel>
+
+</Window>
