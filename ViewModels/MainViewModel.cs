@@ -44,10 +44,13 @@ public partial class MainViewModel : ObservableObject
 
     List<ConfigInfo> lstConfigs = new List<ConfigInfo>();
     List<AsciiInfo> lstAscii = new List<AsciiInfo>();
-    Dictionary<string, List<string>> dtTypes = new Dictionary<string, List<string>>();
+    
     List<ManualCriteria> lstManualCriteria = new List<ManualCriteria>(0);
 
     public ObservableCollection<DamageInfo> Damages { get; } = new();
+
+    [ObservableProperty]
+    private Dictionary<string, List<string>> dtTypes = new();
 
     [ObservableProperty]
     private ObservableCollection<KeyValuePair<string, string>> overviewImages = new();

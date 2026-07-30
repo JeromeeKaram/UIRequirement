@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -84,5 +85,29 @@ public partial class MainWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         _vm.Initialise();
+    }
+
+    private void cmbRepairParts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ComboBox combo &&
+            combo.SelectedValue is string selectedValue)
+        {
+            try
+            {
+                _vm.Locations.Clear();
+                var types = _vm.DtTypes;
+
+                var locations = types
+    .Where(t => t.Key == selectedValue)
+    .SelectMany(t => t.Value)
+    .Select(v => new KeyValuePair<string, string>(v, v));
+
+                _vm.Locations = new ObservableCollection<KeyValuePair<string, string>>(locations.ToList());
+            }
+            catch (Exception ee)
+            {
+                Utility.WriteErrorLog(ee);
+            }
+        }
     }
 }
