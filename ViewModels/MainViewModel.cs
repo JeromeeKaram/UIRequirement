@@ -14,6 +14,7 @@ namespace UIRequirement.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     private readonly string sDir = AppDomain.CurrentDomain.BaseDirectory;
+    CTRReader oCTR = null;
 
     [ObservableProperty]
     private string? findingTicketNo;
@@ -201,24 +202,24 @@ public partial class MainViewModel : ObservableObject
                 {
                     if (config.m_sType == SelectedRepairPart && config.m_sSubType == SelectedLocation)
                     {
-                        template = Utility.m_sBinPath + "Templates\\" + config.m_sFile;
+                        template = "bin\\" + Utility.m_sBinPath + "Templates\\" + config.m_sFile;
                     }
                 }
                 if (template.Length > 0)
                 {
-                    //string finding = Utility.SplitString(InputFolderPath, ",")[0];
-                    //var result = oCTR.write(outputDir, lstDamages, ESN, TSN, CSN, finding);
-                    //if (result == DialogResult.Yes)
-                    //{
-                    //    //this.TopMost = false; TODO
-                    //    richTextBox1.Text = "";
-                    //    lstDamages.Clear();
-                    //    DamageRecords.Clear();
-                    //    OverviewImages.Clear();
-                    //    ZoomedViews.Clear();
-                    //    PartsInformation.Clear();
-                    //    Utility.InformationUser("Sucessfully created CTR Form");
-                    //}
+                    string finding = Utility.SplitString(InputFolderPath, ",")[0];
+                    var result = oCTR.write(outputDir, lstDamages, ESN, TSN, CSN, finding);
+                    if (result)
+                    {
+                        //this.TopMost = false; TODO
+                        TicketDetails = "";
+                        lstDamages.Clear();
+                        DamageRecords.Clear();
+                        OverviewImages.Clear();
+                        ZoomedViews.Clear();
+                        PartsInformation.Clear();
+                        Utility.InformationUser("Sucessfully created CTR Form");
+                    }
                 }
                 IsLoading = false;
 
@@ -314,7 +315,7 @@ public partial class MainViewModel : ObservableObject
             }
 
             //--Show the Damage information in UI
-            var oCTR = new CTRReader();
+            oCTR = new CTRReader();
             oCTR.updateFromRedmine(filename);
             string desc = "";
             foreach (string s in oCTR.m_lstDamageInfo)
@@ -691,7 +692,7 @@ public partial class MainViewModel : ObservableObject
         {
             if (DamageRecords.Count == 0)
             {
-                Utility.WarnUser("Please add Damage Information");
+                MessageBox.Show("Please add Damage Information");
                 return false;
             }
 

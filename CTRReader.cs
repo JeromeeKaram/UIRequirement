@@ -298,7 +298,7 @@ class CTRReader
                     pdffile = saveFileDialog.FileName;
 
                     //--- Open the 1st template and copy to required folder
-                    string templatePath = Utility.m_sBinPath + "Templates\\" + lstDamages[0].m_oConfig.m_sFile;
+                    string templatePath = outputDir + "\\bin\\Templates\\" + lstDamages[0].m_oConfig.m_sFile; //TODO
                     Utility.WriteErrorLog("Type : " + lstDamages[0].m_sType + " ; " + "Sub Type : " + lstDamages[0].m_sSubType + " ; Template 1 : " + templatePath);
                     System.IO.File.Copy(templatePath, pdffile, true);
                     //Open word && Change the title text
