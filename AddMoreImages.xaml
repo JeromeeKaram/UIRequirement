@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIRequirement"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="Window_Loaded"
         Title="AddMoreImages" Height="450" Width="800">
     <Grid Margin="10">
 
@@ -31,14 +31,16 @@
                            FontSize="14"
                            Text="Select Image:" />
 
-                <ComboBox x:Name="cbAddMoreImages"
+                <ComboBox x:Name="cmbAddMoreImages"
                           Grid.Row="0"
                           Grid.Column="0"
                           Margin="100,0,0,0"
                           Width="186"
                           Height="25"
                           Background="#D2FAFF"
-                          SelectionChanged="cbAddMoreImages_SelectionChanged" />
+                          ItemsSource="{Binding ExistingImages}" DisplayMemberPath="Key"
+                          SelectedItem="{Binding SelectedExistingImage, Mode=TwoWay}"
+                          SelectionChanged="cmbAddMoreImages_SelectionChanged" />
 
                 <!-- Preview Image -->
                 <Border Grid.Row="2"
@@ -62,8 +64,8 @@
                                FontSize="14"
                                Margin="0,0,0,10"/>
 
-                    <TextBox x:Name="tbImageName"
-                             Width="140"/>
+                    <TextBox x:Name="txtImageName"
+                             Width="140" Text="{Binding ImageName}"/>
 
                     <Button x:Name="btnAdd"
                             Content="Add Image"
@@ -81,12 +83,13 @@
                 </StackPanel>
 
                 <!-- Images Added -->
-                <ListBox x:Name="lbImagesAdded"
+                <ListBox x:Name="lstImagesAdded" ItemsSource="{Binding ImagesAdded}"
                          BorderBrush="Black"
                          Grid.RowSpan="3"
                          Grid.Column="2"
                          Width="160"
                          BorderThickness="1"
+                         DisplayMemberPath="Key"
                          Height="225"/>
             </Grid>
         </GroupBox>

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CTR_Form_Tool.Views;
 using OfficeOpenXml;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -174,12 +175,6 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void AddMoreImages()
-    {
-        MessageBox.Show("Add More Images");
-    }
-
-    [RelayCommand]
     private void Run()
     {
         try
@@ -329,10 +324,6 @@ public partial class MainViewModel : ObservableObject
 
             //Load Images
 
-            //cbImage1.Items.Clear();
-            //cbImage2.Items.Clear();
-            //cbImage3.Items.Clear(); 
-
             ZoomedViews.Clear();
             OverviewImages.Clear();
             PartsInformation.Clear();
@@ -349,10 +340,6 @@ public partial class MainViewModel : ObservableObject
             OverviewImages.Add(new KeyValuePair<string, string>("No Image", ""));
             PartsInformation.Add(new KeyValuePair<string, string>("No Image", ""));
 
-            //cbImage1.Items.Add("No Image");
-            //cbImage2.Items.Add("No Image");
-            //cbImage3.Items.Add("No Image");
-
             if (imageFiles != null && imageFiles.Length > 0)
             {
                 foreach (string img in imageFiles)
@@ -362,14 +349,10 @@ public partial class MainViewModel : ObservableObject
                     PartsInformation.Add(new KeyValuePair<string, string>(System.IO.Path.GetFileName(img), img));
                 }
             }
-            //cbImage1.SelectedIndex = 0;
-            //cbImage2.SelectedIndex = 0;
-            //cbImage3.SelectedIndex = 0;
 
             SelectedOverviewImage = OverviewImages.FirstOrDefault();
             SelectedZoomedView = ZoomedViews.FirstOrDefault();
             SelectedPartInformation = PartsInformation.FirstOrDefault();
-
         }
         catch (Exception ee)
         {

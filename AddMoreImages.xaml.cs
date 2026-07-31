@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,43 +21,38 @@ namespace UIRequirement;
 /// </summary>
 public partial class AddMoreImages : Window
 {
-    public ObservableCollection<string> AvailableImages { get; set; }
+    public ObservableCollection<KeyValuePair<string, string>> ExistingImages { get; set; }
         = new();
 
-    public ObservableCollection<string> ImagesAdded { get; set; }
+    public ObservableCollection<KeyValuePair<string, string>> ImagesAdded { get; set; }
         = new();
 
-    private string? _selectedImagePath;
+    private KeyValuePair<string, string>? selectedExistingImage;
+    public KeyValuePair<string, string>? SelectedExistingImage
+    {
+        get => selectedExistingImage;
+        set => selectedExistingImage = value;
+    }
 
     public AddMoreImages()
     {
         InitializeComponent();
-
-        cbAddMoreImages.ItemsSource = AvailableImages;
-        lbImagesAdded.ItemsSource = ImagesAdded;
-
-        LoadImages();
+        DataContext = this;
     }
 
-    private void LoadImages()
+    private void cmbAddMoreImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        // Sample data
-        AvailableImages.Add(@"C:\Images\Image1.jpg");
-        AvailableImages.Add(@"C:\Images\Image2.jpg");
-        AvailableImages.Add(@"C:\Images\Image3.jpg");
-    }
-
-    private void cbAddMoreImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (cbAddMoreImages.SelectedItem is not string imagePath)
+        if (cmbAddMoreImages.SelectedItem is not KeyValuePair<string, string> image)
             return;
 
-        _selectedImagePath = imagePath;
+        selectedExistingImage = image;
 
         try
         {
             pictureBox1.Source = new BitmapImage(
-                new Uri(imagePath, UriKind.Absolute));
+                new Uri(image.Value, UriKind.Absolute));
+
+            txtImageName.Text = image.Key.Split(".")[0];
         }
         catch
         {
@@ -66,28 +62,20 @@ public partial class AddMoreImages : Window
 
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(tbImageName.Text))
+        if (string.IsNullOrWhiteSpace(txtImageName.Text))
         {
             MessageBox.Show("Please enter an image name.");
             return;
         }
 
-        ImagesAdded.Add(tbImageName.Text);
+        ImagesAdded.Add(new KeyValuePair<string, string>(txtImageName.Text, selectedExistingImage?.Value ?? string.Empty));
 
-        tbImageName.Clear();
+        txtImageName.Clear();
     }
 
     private void btnClear_Click(object sender, RoutedEventArgs e)
     {
         ImagesAdded.Clear();
-
-        tbImageName.Clear();
-
-        pictureBox1.Source = null;
-
-        cbAddMoreImages.SelectedIndex = -1;
-
-        _selectedImagePath = null;
     }
 
     private void btnOK_Click(object sender, RoutedEventArgs e)
@@ -100,5 +88,27 @@ public partial class AddMoreImages : Window
     {
         DialogResult = false;
         Close();
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        ExistingImages.Clear();
+        var findingFolder = AppDomain.CurrentDomain.BaseDirectory + "\\bin\\images" + "\\Finding\\";
+
+        string[] imageFiles = Directory.GetFiles(findingFolder, "*.*")
+                                                .Where(file => file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
+                                                || file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
+                                                || file.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+                                                || file.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)
+                                                || file.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+        //Show in the Drop down
+        if (imageFiles != null && imageFiles.Length > 0)
+        {
+            foreach (string img in imageFiles)
+            {
+                ExistingImages.Add(new KeyValuePair<string, string>(System.IO.Path.GetFileName(img), img));
+            }
+        }
     }
 }

@@ -83,9 +83,14 @@ public partial class MainWindow : Window
 
     private void btnAddMoreImages_Click(object sender, RoutedEventArgs e)
     {
-        var window = new AddMoreImages();
+        var window = new AddMoreImages { Owner = this };
         window.Owner = this;
-        window.ShowDialog();
+        bool? result = window.ShowDialog();
+
+        if (result == true && window.ImagesAdded.Count > 0)
+        {
+            var lstMoreImages = window.ImagesAdded.ToList();
+        }
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
